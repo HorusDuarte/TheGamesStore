@@ -1,0 +1,234 @@
+/*Fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+/*Produto Style*/
+
+body{
+    background:#eee;
+}
+main{
+    font-family: 'Cabin',sans-serif;
+}
+
+.product-content {
+    border: 1px solid #dfe5e9;
+    margin-bottom: 20px;
+    margin-top: 12px;
+    background: #fff
+}
+
+.product-content .carousel-control.left {
+    margin-left: 0
+}
+
+.product-content .product-image {
+    background-color: #fff;
+    display: block;
+    min-height: 238px;
+    overflow: hidden;
+    position: relative
+}
+
+.product-content .product-detail {
+    border-bottom: 1px solid #dfe5e9;
+    padding-bottom: 17px;
+    padding-left: 16px;
+    padding-top: 16px;
+    position: relative;
+    background: #fff
+}
+
+.product-content .product-detail h5 a {
+    color: #2f383d;
+    font-size: 15px;
+    line-height: 19px;
+    text-decoration: none;
+    padding-left: 0;
+    margin-left: 0
+}
+
+.product-content .product-detail h5 a span {
+    color: #9aa7af;
+    display: block;
+    font-size: 13px
+}
+
+.product-content .product-detail span.tag1 {
+    border-radius: 50%;
+    color: #fff;
+    font-size: 15px;
+    height: 50px;
+    padding: 13px 0;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: 10px;
+    width: 50px
+}
+
+.product-content .description {
+    font-size: 12.5px;
+    line-height: 20px;
+    background: #fff
+    padding: 10px 14px 16px 19px;
+}
+
+.product-content .product-info {
+    padding: 11px 19px 10px 20px
+}
+
+.product-content .product-info a.add-to-cart {
+    color: #2f383d;
+    font-size: 13px;
+    padding-left: 16px
+}
+
+.product-content name.a {
+    padding: 5px 10px;
+    margin-left: 16px
+}
+
+.product-wrap .product-image span.tag2 {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    padding: 10px 0;
+    color: #fff;
+    font-size: 11px;
+    text-align: center
+}
+
+.description-tabs .tab-content {
+    padding: 10px 0;
+    font-size:15px;
+}
+
+.product-detail {
+    padding: 30px 30px 50px
+}
+
+.product-detail hr+.description-tabs {
+    padding: 0 0 5px!important
+}
+
+.product-detail .carousel-control.left,
+.product-detail .carousel-control.right {
+    background: none!important
+}
+
+.product-detail .glyphicon {
+    color: #3276b1
+}
+
+.product-detail .product-image {
+    border-right: none!important
+}
+
+.product-detail .name {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.product-detail .name small {
+    display: block
+}
+
+.product-detail .name a {
+    margin-left: 0
+}
+
+.product-detail .price-container {
+    font-size: 24px;
+    margin: 0;
+    font-weight: 300
+}
+
+.product-detail .price-container small {
+    font-size: 12px
+}
+
+.product-detail .fa-2x {
+    font-size: 16px!important
+}
+
+.product-detail .fa-2x>h5 {
+    font-size: 12px;
+    margin: 0
+}
+
+.product-detail .fa-2x+a,
+.product-detail .fa-2x+a+a {
+    font-size: 13px
+}
+
+.profile-message ul {
+  list-style: none ;  
+}
+
+.product-detail .certified {
+    margin-top: 10px;
+}
+
+
+.product-detail .certified ul li {
+    display: inline-block;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 13px 19px
+}
+
+
+.product-detail .certified ul li a {
+    text-align: left;
+    font-size: 12px;
+    color: #6d7a83;
+    line-height: 16px;
+    text-decoration: none
+}
+
+.product-detail .certified ul li a span {
+    display: block;
+    color: #21c2f8;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center
+}
+ul.nav-pills{
+    margin-left: 10%;
+    color: black;
+    font-size: 18px;
+}
+
+
+@media only screen and (min-width:1024px) {
+    .product-content div[class*=col-md-4] {
+        padding-right: 0
+    }
+    .product-content div[class*=col-md-8] {
+        padding: 0 13px 0 0
+    }
+    .product-wrap div[class*=col-md-5] {
+        padding-right: 0
+    }
+    .product-wrap div[class*=col-md-7] {
+        padding: 0 13px 0 0
+    }
+    .product-content .product-image {
+        border-right: 1px solid #dfe5e9
+    }
+    .product-content .product-info {
+        position: relative
+    }
+}
+@media only screen and (max-width: 480px){}
+
+.message img.online {
+    width:40px;
+    height:40px;
+}
+.ficha{
+    background-color: #F1F1F1 
+}

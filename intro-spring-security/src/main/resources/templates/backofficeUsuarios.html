@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+        <title>Consulta de Usuarios</title>
+        <!--Bootstrap-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+        <!--Font Awesome-->
+        <script src="https://kit.fontawesome.com/f2150dbc67.js" crossorigin="anonymous"></script>
+        <!--Style-->
+        <link rel="stylesheet" type="text/css" href="/CSS/estilo.css">
+        <link rel="stylesheet" type="text/css" href="/CSS/estiloc.css">
+    </head>
+    <body>
+        <header>
+            <div class="wrapper">
+                <nav>
+                    <div class="menu-toggle">
+                        <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                            <div class="pesquisar">
+                                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Pesquisar"
+                                       aria-label="Pesquisar">
+                            </div>
+                        </form>	
+                    </div>
+                    <div class="brand">
+                        <h2>TheGameStore</h2>
+                    </div>
+                </nav>
+            </div>
+            <nav class="navbar navbar-dark bg-dark">
+                <a class="nav-item nav-link" href='/' style="color:white">HOME</a>
+                <a class="nav-item nav-link" href="#" style="color:white">MAIS VENDIDOS</a>
+                <a class="nav-item nav-link" href="#" style="color:white">CONSOLES</a>
+                <a class="nav-item nav-link active" href="#" style="color:white">JOGOS</a>
+                <a class="nav-item nav-link" href="#" style="color:white">ACESSÓRIOS</a>
+                <a class="nav-item nav-link" href="#" style="color:white">LANÇAMENTOS</a>
+                <a class="nav-item nav-link" sec:authorize="hasRole('EDITOR')" href='/Produtos' style="color:white">PRODUTOS</a>
+			<a class="nav-item nav-link" sec:authorize="hasRole('ADMIN')" href='/Usuarios' style="color:white">USUARIOS</a>	
+                	
+            </nav>
+        </header>
+        <main>
+            <div class="container">
+                <br>
+                <div class="titulo-consulta">
+                    <h1>Lista de Usuários</h1>
+                </div>
+                <br>
+                <table class="table table-borderless">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="text-center">Nome</th>
+                            <th class="text-center">E-mail</th>
+                            <th class="text-center">Função</th>
+                            <th class="text-center" colspan="2">Ações</th>
+                        </tr>
+                    </thead>
+                    <tr th:each="game: ${games}">
+                        <td class="text-center" th:text="${game.username}" />
+                        <td class="text-center" th:text="${game.email}" />
+                        <td class="text-center" th:text="${game.role}" />
+                        <td class="text-center">
+                            <form action="#" th:action="@{/Usuarios/} + ${game.id_usuario}" th:method="get">
+                                <button class="btn btn-outline-info btn-sm" type="submit" value="submit">Atualizar</button>
+                            </form>
+                        </td>
+                        <td class="text-center">
+                            <form action="#" th:action="${'/Usuarios/' + game.id_usuario}" th:method="delete">
+                                <button class="btn btn-outline-danger btn-sm" type="submit" value="submit">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+    </body>
+</html>
