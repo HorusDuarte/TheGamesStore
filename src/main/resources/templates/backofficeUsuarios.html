@@ -59,12 +59,25 @@
 			<div class="titulo-consulta">
 				<h1>Consulta de Usuários</h1>
 			</div>
+			
+			<div th:class="${#strings.isEmpty(message)} ?
+  'panel panel-default' : 'panel panel-success'">
+
+		<div class="panel-heading">
+                <span th:text="${#strings.isEmpty(message)} ? '' : ${message}"> </span>
+            </div>
+
+ 
+     <!--código omitido-->
+
+			
 			<br>
 			<div style="text-align: right">
 				<a href="Usuarios/Novo" class="btn btn-success">Adicionar
 					Usuário</a>
 			</div>
-			<table class="table table-borderless">
+			
+			 <table class="table table-borderless table-condensed">
 				<thead class="bg-light">
 					<tr>
 						<th class="text-center">Nome</th>
@@ -92,7 +105,8 @@
 						</form>
 					</td>
 				</tr>
-			</table>
+			     </table>
+
 		</div>
 	</main>
 </body>

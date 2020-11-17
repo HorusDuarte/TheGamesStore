@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -140,10 +141,11 @@ public class Produtos_Controller {
   }
 
   @DeleteMapping("/Produtos/{id_produto}")
-  public ModelAndView removeProduto(@PathVariable("id_produto") int id_produto) {
+  public ModelAndView removeProduto(@PathVariable("id_produto") int id_produto, RedirectAttributes attrib) {
 
     ProdutoRepository produtoRepository = new ProdutoRepository();
     produtoRepository.inativarProduto(id_produto);
+    attrib.addFlashAttribute("message", "Produto removido com sucesso.");
 
     ModelAndView mv = new ModelAndView("redirect:/Produtos");
 

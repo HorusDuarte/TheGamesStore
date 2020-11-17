@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class Usuario_Controller {
@@ -72,9 +73,11 @@ public class Usuario_Controller {
   }
 
   @DeleteMapping("/Usuarios/{id_usuario}")
-  public ModelAndView removeUsuario(@PathVariable("id_usuario") int id_usuario) {
-    UsuarioRepository usuarioRepository = new UsuarioRepository();
+  public ModelAndView removeUsuario(@PathVariable("id_usuario") int id_usuario, RedirectAttributes attrib) {
+	  
+	  UsuarioRepository usuarioRepository = new UsuarioRepository();
     usuarioRepository.inativarUsuario(id_usuario);
+    attrib.addFlashAttribute("message", "Usuário removido com sucesso.");
     ModelAndView mv = new ModelAndView("redirect:/Usuarios");
     return mv;
   }
