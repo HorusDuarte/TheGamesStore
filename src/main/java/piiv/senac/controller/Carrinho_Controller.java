@@ -27,19 +27,52 @@ private ProdutoRepository produtoRepository = new ProdutoRepository();
 		
 		ModelAndView mv = new ModelAndView("carrinho");
 		ItensCompra item = new ItensCompra();
-		mv.addObject("listaProdutos", ITENS_COMPRAS);
+		mv.addObject("listaItens", ITENS_COMPRAS);
 		return mv;
 	}
+	
+	@GetMapping("/alterarQuantidade/{id_produto}/{acao}")	
+		public String alterarQuantidade(@PathVariable Integer id_produto, @PathVariable Integer acao){
+	
+		for(ItensCompra it : ITENS_COMPRAS) {
+			if(it.getTable_Produtos().getId_produto().equals(id_produto)) {
+				if(acao.equals(1)) {
+					it.setQuantidade(it.getQuantidade()+1);
+				}else if(acao==0) {
+					it.setQuantidade(it.getQuantidade() -1 );
+					
+				}
+				break;
+			}
+		
+		}
+		
+		return "redirect:/carrinho";
+	}
+	
+	@GetMapping("/removerProduto/{id_produto}")
+	public String removerProduto(@PathVariable Integer id_produto){
+	ModelAndView mv = new ModelAndView("/carrinho");
+
+	for(ItensCompra it : ITENS_COMPRAS) {
+		if(it.getTable_Produtos().getId_produto().equals(id_produto)) {
+			
+			ITENS_COMPRAS.remove(it);			
+			break;
+		}
+	
+	}
+	
+	return "redirect:/carrinho";
+}
+	
+	
 
 	
 	@GetMapping("/adicionarCarrinho/{id_produto}")
-	public ModelAndView adicionarCarrinho(@PathVariable int id_produto) {
+	public String adicionarCarrinho(@PathVariable int id_produto) {
 		
-		ModelAndView mv = new ModelAndView("carrinho");
-		
-	//	Optional<table_Produtos> prod = Optional<>(produtoRepository.getProdutos(id_produto));
-		
-		table_Produtos prod = produtoRepository.getProdutos(id_produto);
+	table_Produtos prod = produtoRepository.getProdutos(id_produto);
 		//Optional<table_Produtos> prod = Optional.ofNullable(produtoRepository.getProdutos(id_produto));
 		if (prod == null) {
 			System.out.println("Produto não encontrado.");
@@ -62,8 +95,8 @@ private ProdutoRepository produtoRepository = new ProdutoRepository();
 			item.setQuantidade(item.getQuantidade()+1);
 			ITENS_COMPRAS.add(item);
 		}
-		mv.addObject("listaItens", ITENS_COMPRAS);
-		return mv;
+		
+		return "redirect:/carrinho";
 	}
 	
 }

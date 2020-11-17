@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class table_Produtos {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id_produto;
+	private Integer id_produto;
 	private String descricao;
 	private String codigo_produto;
 	private double preco_custo;
