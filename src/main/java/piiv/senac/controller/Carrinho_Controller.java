@@ -43,6 +43,16 @@ private void calcularTotal() {
 		return mv;
 	}
 	
+	
+	@GetMapping("/finalizarCompra")
+	public ModelAndView finalizarCompra() {
+		ModelAndView mv = new ModelAndView("finalizarCompra");	
+		calcularTotal();	
+		mv.addObject("compra", compra);
+		mv.addObject("listaItens", ITENS_COMPRAS);
+		return mv;
+	}
+	
 	@GetMapping("/alterarQuantidade/{id_produto}/{acao}")	
 		public String alterarQuantidade(@PathVariable Integer id_produto, @PathVariable Integer acao){
 	
