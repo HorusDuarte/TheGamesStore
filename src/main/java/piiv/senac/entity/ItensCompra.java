@@ -31,7 +31,7 @@ public class ItensCompra implements Serializable {
 	}
 	public Integer getQuantidade() {
 		if(quantidade == null) {
-			quantidade = 8;
+			quantidade = 0;
 		}
 		return quantidade;
 	}
@@ -60,7 +60,7 @@ public class ItensCompra implements Serializable {
 	private table_Produtos table_Produtos;
 	private table_Compra table_Compra;
 	private Integer quantidade;
-	private double valorUnitario;
-	private double valorTotal;
+	private double valorUnitario = 0.;
+	private double valorTotal = 0.;
 	
 }

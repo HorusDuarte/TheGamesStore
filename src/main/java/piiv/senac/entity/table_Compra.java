@@ -18,7 +18,7 @@ public class table_Compra implements Serializable{
 	private table_Cliente cliente;
 	private Date dataCompra = new Date();
 	private String formaPagamento;
-	private Double valorTotal;
+	private Double valorTotal = 0.;
 
 	
 }
