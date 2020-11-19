@@ -38,7 +38,7 @@ public class SecurityFuncionario extends WebSecurityConfigurerAdapter {
 		.antMatchers("/administrativo/**").hasAuthority("administrador")
 		.antMatchers("/estoquista/**").hasAnyAuthority("administrador", "estoquista")
 		.and().formLogin().loginPage("/login").permitAll().and().logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/administrativo").and()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/home").and()
 		.exceptionHandling().accessDeniedPage("/negado");	
 	
 	}

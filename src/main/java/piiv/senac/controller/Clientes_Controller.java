@@ -1,9 +1,7 @@
 package piiv.senac.controller;
 
-
 import piiv.senac.entity.*;
 import piiv.senac.dao.*;
-
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,32 +12,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class Clientes_Controller {
-	
+
 	@GetMapping("/clientes/cadastrar")
-	  public ModelAndView exibirCadastro() {
+	public ModelAndView exibirCadastro() {
 
-	    table_Cliente c = new table_Cliente();
+		table_Cliente c = new table_Cliente();
 
+		ModelAndView mv = new ModelAndView("clientes/cadastrar");
 
-	    ModelAndView mv = new ModelAndView("clientes/cadastrar");
+		mv.addObject("cliente", c);
 
-	    mv.addObject("cliente", c);
+		return mv;
+	}
 
-	    return mv;
-	  }
-
-	
 	@PostMapping("/clientes/cadastrar")
 	public String cadastrarCliente(@ModelAttribute(value = "cliente") table_Cliente c) {
-	
-		 		ClientesRepository clientesRepository = new ClientesRepository();
-		    clientesRepository.salvar(c);
-		    
 
+		ClientesRepository clientesRepository = new ClientesRepository();
+		clientesRepository.salvar(c);
 
-		    return "redirect:/finalizarCompra";
+		return "redirect:/finalizarCompra";
 	}
-	
 
 	@GetMapping("/clientes/editar/{id_cliente}")
 	public ModelAndView editar(@PathVariable("id_cliente") Integer id_cliente,
@@ -50,7 +43,5 @@ public class Clientes_Controller {
 		ModelAndView mv = new ModelAndView("clientes/cadastrar");
 		return mv;
 	}
-	
-	
 
 }

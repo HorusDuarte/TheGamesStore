@@ -36,14 +36,23 @@
 			</nav>
 		</div>
 		<nav class="navbar navbar-dark bg-dark">
-			<a class="nav-item nav-link" href='/' style="color:white">HOME</a>
-			<a class="nav-item nav-link" href="#" style="color:white">MAIS VENDIDOS</a>
-			<a class="nav-item nav-link" href="#" style="color:white">CONSOLES</a>
-			<a class="nav-item nav-link active" href="#" style="color:white">JOGOS</a>
-			<a class="nav-item nav-link" href="#" style="color:white">ACESSÓRIOS</a>
-			<a class="nav-item nav-link" href="#" style="color:white">LANÇAMENTOS</a>
-			<a class="nav-item nav-link" sec:authorize="hasRole('EDITOR')" href='/Produtos' style="color:white">PRODUTOS</a>
-			<a class="nav-item nav-link" sec:authorize="hasRole('ADMIN')" href='/Usuarios' style="color:white">USUARIOS</a>	
+			<a class="nav-item nav-link" href='/home' style="color: white">HOME</a>
+			<a class="nav-item nav-link" href="#" style="color: white">MAIS
+				VENDIDOS</a> <a class="nav-item nav-link" href="#" style="color: white">CONSOLES</a>
+			<a class="nav-item nav-link active" href="#" style="color: white">JOGOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">ACESSÓRIOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">LANÇAMENTOS</a>
+			<security:authorize
+				access="hasAnyRole('administrador', 'estoquista')">
+				<a class="nav-item nav-link" href='/estoquista' style="color: white">PRODUTOS</a>
+			</security:authorize>
+			
+			
+				<security:authorize
+				access="hasRole('administrador')">
+			<a class="nav-item nav-link"
+				href='/administrativo' style="color: white">USUARIOS</a>
+				</security:authorize>
 		</nav>
 	</header>
 	<main>
@@ -60,11 +69,13 @@
 									<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 								</ol>
 								<div class="carousel-inner">
-								
-									<div th:each="imagem, iterstat : ${listaImagens}" th:class="${iterstat.index}== 0  ? 'carousel-item active':'carousel-item'">
-                 ' <img th:src="${imagem.endereco_imagem}" class="d-block w-100" style="width: auto; height: 500px;"alt="Imagem do jogo">
+									<!--
+									<img width="200" th:src= "${produto.endereco_imagem}">
+									-->
+									<img th:src="@{/Produtos/mostrarImagem/{imagem}(imagem=${produto.endereco_imagem})}" >
 
-               						 </div>
+
+								</div>
 									
 								</div>
 								<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

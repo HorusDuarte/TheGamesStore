@@ -28,7 +28,7 @@
 					<h1>TheGameStore</h1>
 				</div>
 				<div class="carrinho-login">
-					<a class="fas fa-user" style="color:black" href="/login"></a>
+					<span class="fas fa-user"></span>
 					<a class="fas fa-shopping-cart" style="color:black" href="/carrinho"></a>
 				</div>
 			</nav>
@@ -113,6 +113,8 @@
 							<!--Card Body-->
 							<div class="card-body card-body-cascade text-center">
 								<!--Card Title-->
+
+								<img th:src="@{/viewImagem/{imagem}(imagem=${produto.endereco_imagem})}" >
 								<h4 class="card-title"><span th:text="${produto.descricao}"></span> </h4>
 								<!-- Card Description-->
 								<p class="card-text" th:text="${produto.descricao_detalhada}"></p>

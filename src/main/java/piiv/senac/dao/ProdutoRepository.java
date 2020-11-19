@@ -35,6 +35,7 @@ public class ProdutoRepository{
 	        p.setQuantidade(rs.getInt("quantidade"));
 	        p.setCodigo_produto(rs.getString("codigo_produto"));
 	        p.setDescricao_detalhada(rs.getString("descricao_detalhada"));
+	        p.setEndereco_imagem(rs.getString("endereco_imagem"));
 	        produtos.add(p);
 	      }
 	    } catch (SQLException ex) {
@@ -67,7 +68,7 @@ public class ProdutoRepository{
 	    PreparedStatement stmt = null;
 
 	    try {
-	      stmt = con.prepareStatement("insert into table_Produtos (descricao, preco_custo, preco_venda, quantidade, codigo_produto, descricao_detalhada) values (?, ?, ?, ?, ?, ?);");
+	      stmt = con.prepareStatement("insert into table_Produtos (descricao, preco_custo, preco_venda, quantidade, codigo_produto, descricao_detalhada,endereco_imagem) values (?, ?, ?, ?, ?, ?, ?);");
 
 	      stmt.setString(1, p.getDescricao());
 	      stmt.setDouble(2, p.getPreco_custo());
@@ -75,7 +76,8 @@ public class ProdutoRepository{
 	      stmt.setInt(4, p.getQuantidade());
 	      stmt.setString(5, p.getCodigo_produto());
 	      stmt.setString(6, p.getDescricao_detalhada());
-	     
+	      stmt.setString(7, p.getEndereco_imagem());
+
 	      stmt.executeUpdate();
 	    } catch (SQLException ex) {
 	      Logger.getLogger(ProdutoRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,7 +86,7 @@ public class ProdutoRepository{
 	    }
 	  }
 
-	  public int getUltimoProduto() {
+	public int getUltimoProduto() {
 	    Connection con = ConnectionBancoDados.obterConexao();
 	    PreparedStatement stmt = null;
 	    ResultSet rs = null;
@@ -125,6 +127,7 @@ public class ProdutoRepository{
 	        p.setQuantidade(rs.getInt("quantidade"));
 	        p.setCodigo_produto(rs.getString("codigo_produto"));
 	        p.setDescricao_detalhada(rs.getString("descricao_detalhada"));
+	        p.setEndereco_imagem(rs.getString("endereco_imagem"));
 
 	    } catch (SQLException ex) {
 	      Logger.getLogger(ProdutoRepository.class.getName()).log(Level.SEVERE, null, ex);
