@@ -16,24 +16,25 @@
 <body>
 	<header>
 		<div class="wrapper">
-			<nav>
-				<div class="menu-toggle">
-					<form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-						<i class="fas fa-search" aria-hidden="true"></i>
-						<div class="pesquisar">
-						<input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Pesquisar"
-						aria-label="Pesquisar">
-						</div>
-					</form>	
-				</div>
-				<div class="brand">
-					<h2>TheGameStore</h2>
-				</div>
-				<div class="carrinho-login">
-					<span class="fas fa-user"></span>
-					<a class="fas fa-shopping-cart" style="color:black" href="/carrinho.html"></a>
-				</div>
-			</nav>
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="nav-item nav-link" href='/home' style="color: white">HOME</a>
+			<a class="nav-item nav-link" href="#" style="color: white">MAIS
+				VENDIDOS</a> <a class="nav-item nav-link" href="#" style="color: white">CONSOLES</a>
+			<a class="nav-item nav-link active" href="#" style="color: white">JOGOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">ACESSÓRIOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">LANÇAMENTOS</a>
+			<security:authorize
+				access="hasAnyRole('administrador', 'estoquista')">
+				<a class="nav-item nav-link" href='/estoquista' style="color: white">PRODUTOS</a>
+			</security:authorize>
+			
+			
+				<security:authorize
+				access="hasRole('administrador')">
+			<a class="nav-item nav-link"
+				href='/administrativo' style="color: white">USUARIOS</a>
+				</security:authorize>
+		</nav>
 		</div>
 		<nav class="navbar navbar-dark bg-dark">
 			<a class="nav-item nav-link" href='/' style="color:white">HOME</a>
@@ -42,15 +43,15 @@
 			<a class="nav-item nav-link active" href="#" style="color:white">JOGOS</a>
 			<a class="nav-item nav-link" href="#" style="color:white">ACESSÓRIOS</a>
 			<a class="nav-item nav-link" href="#" style="color:white">LANÇAMENTOS</a>
-			<a class="nav-item nav-link" sec:authorize="hasRole('EDITOR')" href='/Produtos' style="color:white">PRODUTOS</a>
-			<a class="nav-item nav-link" sec:authorize="hasRole('ADMIN')" href='/Usuarios' style="color:white">USUARIOS</a>	
+			<a class="nav-item nav-link" sec:authorize="hasRole('EDITOR')" href='/estoquista' style="color:white">PRODUTOS</a>
+			<a class="nav-item nav-link" sec:authorize="hasRole('ADMIN')" href='/administrador' style="color:white">USUARIOS</a>	
 		</nav>
 	</header>
     <!-- Menu component end -->
     <main>
       <div class="container">
         <h1 class="display-4" style="margin-top: 3rem">Novo Usuário</h1>
-        <form action="#" th:action="@{/Usuarios/Novo}" th:object="${usuario}" method='POST' onsubmit="return validateForm()">
+        <form action="#" th:action="@{/administrativo/Novo}" th:object="${usuario}" method='POST' onsubmit="return validateForm()">
           <div class="form-group">
             <label for="text">Usuário:</label>
             <input type="text" class="form-control w-50" placeholder="Digite o nome" th:field="*{username}" id="username" required>
@@ -69,11 +70,9 @@
           </div>
           <div class="form-group">
             <label for="select">Selecione o Cargo:</label>
-            <select class="form-control w-50" th:field="*{role}" id="cargo" required>
-              <option value="-1"> -- </option>
-              <option value="Administrador">Administrador</option>
-              <option value="Analista">Analista</option>
-              <option value="Estoquista">Estoquista</option>
+            <select class="form-control w-50" th:field="*{role}" id="role" required>
+              <option value="administrador">administrador</option>
+              <option value="estoquista">estoquista</option>
             </select>
           </div>
 
