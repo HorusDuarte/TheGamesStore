@@ -1,5 +1,8 @@
 package piiv.senac.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +11,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import piiv.senac.dao.ProdutoRepository;
@@ -17,7 +21,9 @@ import piiv.senac.entity.table_Produtos;
 
 @Controller
 public class Carrinho_Controller {
-	
+	private static String caminhoImagens = "C:\\imagens\\";
+
+
 	private List<ItensCompra> ITENS_COMPRAS = new ArrayList<ItensCompra>();
 	private table_Compra compra = new table_Compra();
 	
@@ -25,7 +31,7 @@ private ProdutoRepository produtoRepository = new ProdutoRepository();
 
 
 private void calcularTotal() {
-	
+
 	compra.setValorTotal(0.);
 	for(ItensCompra it: ITENS_COMPRAS) {
 		compra.setValorTotal(compra.getValorTotal() + it.getValorTotal());
@@ -123,4 +129,16 @@ private void calcularTotal() {
 	}
 	return "redirect:/carrinho";
 }
+
+	@GetMapping("/carrinho/mostrarImg/{imagem}")
+	@ResponseBody
+	public byte[] retornarImagem(@PathVariable("imagem") String imagem) throws IOException {
+		File imagemArquivo = new File(caminhoImagens + imagem);
+		if (imagem != null || imagem.trim().length() > 0) {
+			return Files.readAllBytes(imagemArquivo.toPath());
+		}
+		return null;
+	}
+
+
 }
