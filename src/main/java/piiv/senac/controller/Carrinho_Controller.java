@@ -35,7 +35,7 @@ private void calcularTotal() {
 
 	@GetMapping("/carrinho")
 	public ModelAndView showView() {
-		ModelAndView mv = new ModelAndView("carrinho");	
+		ModelAndView mv = new ModelAndView("geral/carrinho");	
 		calcularTotal();	
 
 		mv.addObject("compra", compra);
@@ -46,7 +46,7 @@ private void calcularTotal() {
 	
 	@GetMapping("/finalizarCompra")
 	public ModelAndView finalizarCompra() {
-		ModelAndView mv = new ModelAndView("finalizarCompra");	
+		ModelAndView mv = new ModelAndView("geral/finalizarCompra");	
 		calcularTotal();	
 		mv.addObject("compra", compra);
 		mv.addObject("listaItens", ITENS_COMPRAS);

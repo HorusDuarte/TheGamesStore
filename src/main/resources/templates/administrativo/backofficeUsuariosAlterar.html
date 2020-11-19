@@ -31,26 +31,35 @@
 				</div>
 				<div class="carrinho-login">
 					<span class="fas fa-user"></span>
-					<a class="fas fa-shopping-cart" style="color:black" href="/carrinho.html"></a>
+					<a class="fas fa-shopping-cart" style="color:black" href="/carrinho"></a>
 				</div>
 			</nav>
 		</div>
 		<nav class="navbar navbar-dark bg-dark">
-			<a class="nav-item nav-link" href='/' style="color:white">HOME</a>
-			<a class="nav-item nav-link" href="#" style="color:white">MAIS VENDIDOS</a>
-			<a class="nav-item nav-link" href="#" style="color:white">CONSOLES</a>
-			<a class="nav-item nav-link active" href="#" style="color:white">JOGOS</a>
-			<a class="nav-item nav-link" href="#" style="color:white">ACESSÓRIOS</a>
-			<a class="nav-item nav-link" href="#" style="color:white">LANÇAMENTOS</a>
-			<a class="nav-item nav-link" sec:authorize="hasRole('EDITOR')" href='/Produtos' style="color:white">PRODUTOS</a>
-			<a class="nav-item nav-link" sec:authorize="hasRole('ADMIN')" href='/Usuarios' style="color:white">USUARIOS</a>	
+			<a class="nav-item nav-link" href='/home' style="color: white">HOME</a>
+			<a class="nav-item nav-link" href="#" style="color: white">MAIS
+				VENDIDOS</a> <a class="nav-item nav-link" href="#" style="color: white">CONSOLES</a>
+			<a class="nav-item nav-link active" href="#" style="color: white">JOGOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">ACESSÓRIOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">LANÇAMENTOS</a>
+			<security:authorize
+				access="hasAnyRole('administrador', 'estoquista')">
+				<a class="nav-item nav-link" href='/estoquista' style="color: white">PRODUTOS</a>
+			</security:authorize>
+			
+			
+				<security:authorize
+				access="hasRole('administrador')">
+			<a class="nav-item nav-link"
+				href='/administrativo' style="color: white">USUARIOS</a>
+				</security:authorize>
 		</nav>
 	</header>
     <!-- Menu component end -->
     <main>
       <div class="container">
         <h1 class="display-4" style="margin-top: 3rem">Alterar Usuário</h1>
-        <form action="#" th:object="${usuario}" th:action="@{/Usuarios/} + ${usuario.id_usuario}" th:method="put">
+        <form action="#" th:object="${usuario}" th:action="@{/administrativo/} + ${usuario.id_usuario}" th:method="put">
           <div class="form-group">
             <label for="text">Username:</label>
             <input type="text" class="form-control w-50" placeholder="Digite o nome" th:field="*{username}" id="username">
@@ -70,10 +79,8 @@
           <div class="form-group">
             <label for="select">Selecione o Cargo:</label>
             <select class="form-control w-50" th:field="*{role}" id="role" required>
-              <option value="-1"> -- </option>
-              <option value="Administrador">Administrador</option>
-              <option value="Analista">Analista</option>
-              <option value="Estoquista">Estoquista</option>
+              <option value="administrador">administrador</option>
+              <option value="estoquista">estoquista</option>
             </select>
           </div>
 

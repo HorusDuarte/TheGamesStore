@@ -44,20 +44,29 @@
 			</nav>
 		</div>
 		<nav class="navbar navbar-dark bg-dark">
-			<a class="nav-item nav-link" href='/' style="color: white">HOME</a> <a
-				class="nav-item nav-link" href="#" style="color: white">MAIS
+			<a class="nav-item nav-link" href='/home' style="color: white">HOME</a>
+			<a class="nav-item nav-link" href="#" style="color: white">MAIS
 				VENDIDOS</a> <a class="nav-item nav-link" href="#" style="color: white">CONSOLES</a>
 			<a class="nav-item nav-link active" href="#" style="color: white">JOGOS</a>
 			<a class="nav-item nav-link" href="#" style="color: white">ACESSÓRIOS</a>
 			<a class="nav-item nav-link" href="#" style="color: white">LANÇAMENTOS</a>
-			<a class="nav-item nav-link" sec:authorize="hasRole('EDITOR')"
-				href='/Produtos' style="color: white">PRODUTOS</a> <a
-				class="nav-item nav-link" sec:authorize="hasRole('ADMIN')"
-				href='/Usuarios' style="color: white">USUARIOS</a>
+			<security:authorize
+				access="hasAnyRole('administrador', 'estoquista')">
+				<a class="nav-item nav-link" href='/estoquista' style="color: white">PRODUTOS</a>
+			</security:authorize>
+			
+			
+				<security:authorize
+				access="hasRole('administrador')">
+			<a class="nav-item nav-link"
+				href='/administrativo' style="color: white">USUARIOS</a>
+				</security:authorize>
 		</nav>
 	</header>
 	<main>
-	
+		<div class="titulo-carrinho">
+			<h2>Carrinho de compras</h2>
+		</div>
 		<div class="container pb-5 mt-n2 mt-md-n">
 			<div class="row">
 				<div class="col">
@@ -69,7 +78,7 @@
 								stroke-linejoin="round"
 								class="feather feather-chevron-left pull-right"
 								style="width: 100%; height: 1rem;">
-								</svg></a>
+								<polyline points="15 18 9 12 15 6"></polyline></svg>Continue comprando</a>
 					</h2>
 					<!-- Item-->
 					<div th:each="item: ${listaItens}"
@@ -90,43 +99,52 @@
 							class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left"
 							style="max-width: 10rem;">
 							<div class="form-group mb-2">
-								<label for="quantity1">Quantidade</label> <br> <span
-									th:text="${item.quantidade}"></span>
+								<label for="quantity1">Quantidade</label>
+								<br>
+								<span th:text="${item.quantidade}"></span> 
 							</div>
+							
+							
+							<a class="btn btn-sm btn-successs"
+								th:href="@{/alterarQuantidade/{id_produto}/{acao}(id_produto=${item.table_Produtos.id_produto}, acao=${0})}"
+								role="button"> <i class="fa fa-minus"></i>
+							</a>
+							
+							<a class="btn btn-sm btn-successs"
+								th:href="@{/alterarQuantidade/{id_produto}/{acao}(id_produto=${item.table_Produtos.id_produto}, acao=${1})}"
+								role="button"> <i class="fa fa-plus"></i>
+							</a>
+							
+							&nbsp; &nbsp; 
+							
+							<a class="btn btn-sm btn-danger"
+							th:href="@{/removerProduto/{id_produto}(id_produto=${item.table_Produtos.id_produto})}"
+							role="button"><i class="fa fa-trash"></i></a>
 
+							
 						</div>
 					</div>
 
-					<div class="col-xl-3 col-md-4 pt-3 pt-md-0 pull-right">
-						<hr>
-						<h2 class="h6 px-4 py-3 bg-secondary text-center"
-							style="display: inline;">Vl.Itens</h2>
-						<div class="h3 font-weight-semibold py-3" style="display: inline;">
-							<span th:text="${compra.valorTotal}"> </span>
-						</div>
-						<hr>
-
-						<h2 class="h6 px-4 py-3 bg-secondary text-center"
-							style="display: inline;">Vl.Frete</h2>
-						<div class="h3 font-weight-semibold py-3" style="display: inline;"></div>
-						<hr>
-
-						<h2 class="h6 px-4 py-3 bg-secondary text-center"
-							style="display: inline;">Vl.Total</h2>
-						<div class="h3 font-weight-semibold py-3" style="display: inline;">
-							<span th:text="${compra.valorTotal}"> </span>
-						</div>
-						<hr>
-
-						<a class="btn btn-primary btn-block" href="#"> <svg width="24"
-								height="24" viewBox="0 0 24 24" fill="none"
-								stroke="currentColor" stroke-width="2" stroke-linecap="round"
-								stroke-linejoin="round" class="feather feather-credit-card mr-2">
+				<div class="col-xl-3 col-md-4 pt-3 pt-md-0 pull-right">
+									<hr>
+									<h2 class="h6 px-4 py-3 bg-secondary text-center" style="display: inline;">Vl.Itens</h2>
+									<div class="h3 font-weight-semibold py-3" style="display: inline;"> <span th:text="${compra.valorTotal}"> </span></div>
+									<hr>
+									
+									<h2 class="h6 px-4 py-3 bg-secondary text-center" style="display: inline;">Vl.Frete</h2>
+									<div class="h3 font-weight-semibold py-3" style="display: inline;"></div>
+									<hr>
+									
+									<h2 class="h6 px-4 py-3 bg-secondary text-center" style="display: inline;">Vl.Total</h2>
+									<div class="h3 font-weight-semibold py-3" style="display: inline;"> <span th:text="${compra.valorTotal}"> </span></div>
+									<hr>
+									
+									<a class="btn btn-primary btn-block" th:href="finalizarCompra">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card mr-2">
 											<rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
 											<line x1="1" y1="10" x2="23" y2="10"></line>
-										</svg>Concluir compra
-						</a>
-					</div>
+										</svg>Finalizar pedido</a>
+									</div>
 	</main>
 	<!-- Footer -->
 	<footer class="page-footer">

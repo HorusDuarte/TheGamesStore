@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import piiv.senac.entity.table_Usuarios;
 import piiv.senac.util.ConnectionBancoDados;
 
@@ -31,7 +34,8 @@ public class UsuarioRepository {
                 u.setId_usuario(rs.getInt("id_usuario"));
                 u.setUsername(rs.getString("username"));
                 u.setEmail(rs.getString("email"));
-                u.setRole(rs.getString("role"));;
+                u.setRole(rs.getString("role"));
+                u.setPassword(rs.getString("password"));
                 usuarios.add(u);
             }
         } catch (SQLException ex) {
@@ -67,7 +71,7 @@ public class UsuarioRepository {
             stmt = con.prepareStatement("insert into table_usuarios (username, password, email, role, ativo) values (?, ?, ?, ?, 1);");
 
             stmt.setString(1, u.getUsername());
-            stmt.setString(2, u.getPassword());
+            stmt.setString(2, new BCryptPasswordEncoder().encode(u.getPassword()));
             stmt.setString(3, u.getEmail());
             stmt.setString(4, u.getRole());
 
@@ -112,10 +116,10 @@ public class UsuarioRepository {
             rs = stmt.executeQuery();
 
             rs.next();
-
             u.setUsername(rs.getString("username"));
             u.setEmail(rs.getString("email"));
             u.setRole(rs.getString("role"));
+            u.setPassword(rs.getString("password"));
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,12 +134,12 @@ public class UsuarioRepository {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("update table_Usuarios set username = ?, password = ?, email = ?, role = ?, ativo= 1 where id_usuario = ?;");
+            stmt = con.prepareStatement("update table_Usuarios set username = ?, password = ?, role = ? where id_usuario = ?;");
 
             stmt.setString(1, u.getUsername());
-            stmt.setString(2, u.getPassword());
-            stmt.setString(3, u.getEmail());
-            stmt.setString(4, u.getRole());
+            stmt.setString(2, new BCryptPasswordEncoder().encode(u.getPassword()));
+            stmt.setString(3, u.getRole());
+            stmt.setInt(4, u.getId_usuario());
 
             stmt.executeUpdate();
         } catch (SQLException ex) {

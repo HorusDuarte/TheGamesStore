@@ -6,21 +6,15 @@ import piiv.senac.dao.ProdutoRepository;
 import piiv.senac.entity.table_Produtos;
 import piiv.senac.entity.ImagemProd;
 import piiv.senac.entity.table_Pergunta_Resposta;
-import java.util.logging.Logger;
 import java.util.List;
-import java.util.Set;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,33 +22,32 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class Produtos_Controller {
 
-  @GetMapping("/Produtos")
+  @GetMapping("/estoquista")
   public ModelAndView showView() {
 
-    ModelAndView mv = new ModelAndView("backoffice-produtos");
+    ModelAndView mv = new ModelAndView("estoquista/backofficeProdutosConsulta");
     ProdutoRepository produtoRepository = new ProdutoRepository();
     List<table_Produtos> produtos = produtoRepository.getTable_Produtos();
     mv.addObject("games", produtos);
     return mv;
   }
 
-  @GetMapping("/Produtos/Novo")
+  @GetMapping("/estoquista/Novo")
   public ModelAndView exibirCadastro() {
 
     table_Produtos p = new table_Produtos();
 
-
-    ModelAndView mv = new ModelAndView("backofficeProdutos");
+    ModelAndView mv = new ModelAndView("estoquista/backofficeProdutosNovo");
 
     mv.addObject("produto", p);
 
     return mv;
   }
 
-  @GetMapping("/Produtos/{id_produto}")
+  @GetMapping("/estoquista/{id_produto}")
   public ModelAndView exibir_alterarProduto(@PathVariable("id_produto") int id_produto) {
 
-    ModelAndView mv = new ModelAndView("backofficeProdutosAlterar");
+    ModelAndView mv = new ModelAndView("estoquista/backofficeProdutosAlterar");
     ProdutoRepository produtoRepository = new ProdutoRepository();
     table_Produtos p = produtoRepository.getProdutos(id_produto);
 
@@ -71,10 +64,10 @@ public class Produtos_Controller {
     return mv;
   }
 
-  @GetMapping("/Produtos/Visualizar/{id_produto}")
+  @GetMapping("/estoquista/Visualizar/{id_produto}")
   public ModelAndView verProduto(@PathVariable("id_produto") int id_produto) {
 
-    ModelAndView mv = new ModelAndView("produto");
+    ModelAndView mv = new ModelAndView("geral/produto");
     ProdutoRepository produtoRepository = new ProdutoRepository();
     table_Produtos p = produtoRepository.getProdutos(id_produto);
 
@@ -92,7 +85,7 @@ public class Produtos_Controller {
     return mv;
   }
   	
-  @PutMapping("/Produtos/{id_produto}")
+  @PutMapping("/estoquista/{id_produto}")
   public ModelAndView alterarProduto(
           @PathVariable("id_produto") int id_produto,
           @ModelAttribute(value = "produto") table_Produtos p,
@@ -112,12 +105,12 @@ public class Produtos_Controller {
     if (imagens != null) imagemProdutoRepository.salvarImagensProduto(p.getId_produto(), imagens);
     if (perguntas !=  null && respostas != null) perguntaRespostaRepository.salvarPerguntasRespostas(p.getId_produto(), perguntas, respostas);
 
-    ModelAndView mv = new ModelAndView("redirect:/Produtos");
+    ModelAndView mv = new ModelAndView("redirect:/estoquista");
 
     return mv;
   }
 
-  @PostMapping("/Produtos/Novo")
+  @PostMapping("/estoquista/Novo")
   public ModelAndView adicionarProduto(
           @ModelAttribute(value = "produto") table_Produtos p,
           @RequestParam(value = "imagem", required = false) String[] imagens,
@@ -135,19 +128,19 @@ public class Produtos_Controller {
     if (imagens != null) imagemProdutoRepository.salvarImagensProduto(id_produto, imagens);
     if (perguntas !=  null && respostas != null) perguntasRespostasProdutoRepository.salvarPerguntasRespostas(id_produto, perguntas, respostas);
 
-    ModelAndView mv = new ModelAndView("redirect:/Produtos");
+    ModelAndView mv = new ModelAndView("redirect:/estoquista");
 
     return mv;
   }
 
-  @DeleteMapping("/Produtos/{id_produto}")
+  @DeleteMapping("/estoquista/{id_produto}")
   public ModelAndView removeProduto(@PathVariable("id_produto") int id_produto, RedirectAttributes attrib) {
 
     ProdutoRepository produtoRepository = new ProdutoRepository();
     produtoRepository.inativarProduto(id_produto);
     attrib.addFlashAttribute("message", "Produto removido com sucesso.");
 
-    ModelAndView mv = new ModelAndView("redirect:/Produtos");
+    ModelAndView mv = new ModelAndView("redirect:/estoquista");
 
     return mv;
 

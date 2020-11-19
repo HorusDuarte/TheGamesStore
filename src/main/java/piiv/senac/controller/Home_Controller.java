@@ -19,10 +19,10 @@ import piiv.senac.entity.table_Produtos;
 public class Home_Controller {
 	
 	
-	@GetMapping("/")
+	@GetMapping("/home")
     public ModelAndView home() {
 		
-        ModelAndView mv = new ModelAndView("home");  
+        ModelAndView mv = new ModelAndView("geral/home");  
         ProdutoRepository produtoRepository = new ProdutoRepository();
 
         ImagemProdutoRepository imagemProdutoRepository = new ImagemProdutoRepository();
@@ -34,10 +34,5 @@ public class Home_Controller {
         
         return mv;
 	}
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
     
 }
