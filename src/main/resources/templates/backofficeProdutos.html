@@ -56,7 +56,8 @@
 			<h2>Cadastro de Produtos</h2>
 		</div>
     <div class="container">
-		<form action="#" th:action="@{/Produtos/Novo}" th:object="${produto}" method='POST'>            
+
+		<form action="#" th:action="@{/Produtos/Novo}" enctype="multipart/form-data" th:object="${produto}" method='POST'>
            
                         <br>
 
@@ -133,15 +134,15 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <!--imagens-->
+
                         <div class="form-group">
                             <label class="col-md-4 control-label">Endereço Imagem: </label>
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i
                                             class="glyphicon glyphicon-sort-by-attributes"></i></span>
-                                    <input name="quantidade" placeholder="Endereço Imagem" class="form-control" th:field="*{endereco_imagem}" id="endereco_imagem"
-                                        type="text" style="text-align:center">
+                                    <input type="file" name="file"   />
                                 </div>
                             </div>
                         </div>
@@ -149,7 +150,7 @@
                
 
           <hr>       
-                         <div class="form-group">
+            <div class="form-group">
             <button type="submit" value="submit" class="btn btn-outline-success">Cadastrar</button>
             <button type="button" id="visualizar" class="btn btn-outline-secondary" onclick="visualizarProduto();">Visualizar</button>
 			<button class="btn btn-outline-info" type="reset" value="Reset" onclick="const myNode = document.getElementById('lista-imagens');myNode.innerHTML = ''; const myNode2 = document.getElementById('lista-pr');myNode2.innerHTML = '';">Resetar</button>

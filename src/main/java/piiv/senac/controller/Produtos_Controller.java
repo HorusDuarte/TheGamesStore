@@ -1,32 +1,32 @@
 package piiv.senac.controller;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import piiv.senac.dao.ImagemProdutoRepository;
 import piiv.senac.dao.PerguntaRespostaRepository;
 import piiv.senac.dao.ProdutoRepository;
 import piiv.senac.entity.table_Produtos;
 import piiv.senac.entity.ImagemProd;
 import piiv.senac.entity.table_Pergunta_Resposta;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
 public class Produtos_Controller {
+
+  private static String caminhoImagens = "C:\\imagens\\";
 
   @GetMapping("/Produtos")
   public ModelAndView showView() {
@@ -120,32 +120,38 @@ public class Produtos_Controller {
   @PostMapping("/Produtos/Novo")
   public ModelAndView adicionarProduto(
           @ModelAttribute(value = "produto") table_Produtos p,
-          @RequestParam(value = "imagem", required = false) String[] imagens,
-          @RequestParam(value = "pergunta", required = false) String[] perguntas,
-          @RequestParam(value = "resposta", required = false) String[] respostas) {
+          @RequestParam ("file") MultipartFile arquivo)
+  {
 
     ProdutoRepository produtoRepository = new ProdutoRepository();
-    produtoRepository.salvarProduto(p);
+
+    table_Produtos tableProdutos = new table_Produtos();
 
     int id_produto = produtoRepository.getUltimoProduto();
 
-    ImagemProdutoRepository imagemProdutoRepository = new ImagemProdutoRepository();
-    PerguntaRespostaRepository perguntasRespostasProdutoRepository = new PerguntaRespostaRepository();
-    
-    if (imagens != null) imagemProdutoRepository.salvarImagensProduto(id_produto, imagens);
-    if (perguntas !=  null && respostas != null) perguntasRespostasProdutoRepository.salvarPerguntasRespostas(id_produto, perguntas, respostas);
+    try {
+      if (!arquivo.isEmpty()){
+        byte[] bytes = arquivo.getBytes();
+        Path caminho = Paths.get(caminhoImagens +String.valueOf(tableProdutos.getId_produto())+arquivo.getOriginalFilename());
+        Files.write(caminho, bytes);
 
+        p.setEndereco_imagem(String.valueOf(tableProdutos.getId_produto())+arquivo.getOriginalFilename());
+        produtoRepository.salvarProduto(p);
+      }
+    }catch (IOException e){
+      e.printStackTrace();
+    }
+    produtoRepository.salvarProduto(p);
     ModelAndView mv = new ModelAndView("redirect:/Produtos");
 
     return mv;
   }
 
   @DeleteMapping("/Produtos/{id_produto}")
-  public ModelAndView removeProduto(@PathVariable("id_produto") int id_produto, RedirectAttributes attrib) {
+  public ModelAndView removeProduto(@PathVariable("id_produto") int id_produto) {
 
     ProdutoRepository produtoRepository = new ProdutoRepository();
     produtoRepository.inativarProduto(id_produto);
-    attrib.addFlashAttribute("message", "Produto removido com sucesso.");
 
     ModelAndView mv = new ModelAndView("redirect:/Produtos");
 
@@ -153,4 +159,13 @@ public class Produtos_Controller {
 
   }
 
+  @GetMapping("/Produtos/mostrarImagem/{imagem}")
+  @ResponseBody
+  public byte[] retornarImagem(@PathVariable("imagem") String imagem) throws IOException {
+    File imagemArquivo = new File(caminhoImagens+imagem);
+    if (imagem!=null || imagem.trim().length()>0){
+      return Files.readAllBytes(imagemArquivo.toPath());
+    }
+    return  null;
+  }
 }
