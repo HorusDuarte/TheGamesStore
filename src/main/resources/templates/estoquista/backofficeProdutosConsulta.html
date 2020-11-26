@@ -1,37 +1,57 @@
 <!DOCTYPE html>
 <html>
- <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-	<title>Consulta de Produtos</title>
-	<!--Bootstrap-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-	<!--Font Awesome-->
-	<script src="https://kit.fontawesome.com/f2150dbc67.js" crossorigin="anonymous"></script>
-	<!--Style-->
-	<link rel="stylesheet" type="text/css" href="/CSS/estilo.css">
-	<link rel="stylesheet" type="text/css" href="/CSS/estiloc.css">
+<head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<title>Consulta de Produtos</title>
+
+<!-- 
+
+hm
+ -->
+ 
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+<!--Bootstrap-->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<!--Font Awesome-->
+<!--Style-->
+<link rel="stylesheet" type="text/css" href="/CSS/estilo.css">
+<link rel="stylesheet" type="text/css" href="/CSS/estiloc.css">
+
 </head>
 <body>
 	<header>
 		<div class="wrapper">
 			<nav>
 				<div class="menu-toggle">
-					<form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+					<form
+						class="form-inline d-flex justify-content-center md-form form-sm mt-0">
 						<i class="fas fa-search" aria-hidden="true"></i>
 						<div class="pesquisar">
-						<input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Pesquisar"
-						aria-label="Pesquisar">
+							<input class="form-control form-control-sm ml-3 w-75" type="text"
+								placeholder="Pesquisar" aria-label="Pesquisar">
 						</div>
-					</form>	
+					</form>
 				</div>
 				<div class="brand">
 					<h2>TheGameStore</h2>
 				</div>
 				<div class="carrinho-login">
-					<span class="fas fa-user"></span>
-					<span class="fas fa-shopping-cart"></span>
+					<span class="fas fa-user"></span> <span
+						class="fas fa-shopping-cart"></span>
 				</div>
 			</nav>
 		</div>
@@ -46,74 +66,113 @@
 				access="hasAnyRole('administrador', 'estoquista')">
 				<a class="nav-item nav-link" href='/estoquista' style="color: white">PRODUTOS</a>
 			</security:authorize>
-			
-			
-				<security:authorize
-				access="hasRole('administrador')">
-			<a class="nav-item nav-link"
-				href='/administrativo' style="color: white">USUARIOS</a>
-				</security:authorize>
+
+
+			<security:authorize access="hasRole('administrador')">
+				<a class="nav-item nav-link" href='/administrativo'
+					style="color: white">USUARIOS</a>
+			</security:authorize>
 		</nav>
 	</header>
-  <body>
-    <main>
-      <div class="container">
-      <br>
-      <div class="titulo-consulta">
-			<h1>Consulta de Produtos</h1>
-		</div>
-		
-		<div th:class="${#strings.isEmpty(message)} ?
+<body>
+	<main>
+		<div class="container">
+			<br>
+			<div class="titulo-consulta">
+				<h1>Consulta de Produtos</h1>
+			</div>
+
+			<div
+				th:class="${#strings.isEmpty(message)} ?
   'panel panel-default' : 'panel panel-success'">
 
-		<div class="panel-heading">
-                <span th:text="${#strings.isEmpty(message)} ? '' : ${message}"> </span>
-            </div>
+				<div class="panel-heading">
+					<span th:text="${#strings.isEmpty(message)} ? '' : ${message}">
+					</span>
+				</div>
 
- 
-     <!--código omitido-->
-        
-        
-        <br>
-        <div style="text-align: right">
-          <a href="estoquista/Novo" class="btn btn-success" >Adicionar Produto</a>
-        </div>
-        <table class="table table-borderless table-condensed">
-          <thead class="bg-light">
-            <tr>
-              <th class="text-center">Código</th>
-              <th class="text-center">Descrição</th>
-              <th class="text-center">Preço</th>
-              <th class="text-center">Qtde</th>
-              <th class="text-center" colspan="3">Ações</th>
-            </tr>
-          </thead>
-          <tr th:each="game: ${games}">
-            <td class="text-center" th:text="${game.codigo_produto}" />
-            <td class="text-center" th:text="${game.descricao}" />
-            <td class="text-center" th:text="${game.preco_venda}" />
-            <td class="text-center" th:text="${game.quantidade}" />
-            <td class="text-center">
-              <form action="#" th:action="@{/estoquista/} + ${game.id_produto}" th:method="get">
-                <button class="btn btn-outline-info btn-sm" type="submit" value="submit">Atualizar</button>
-              </form>
-            </td>
-            <td class="text-center">
-              <form action="#" th:action="@{/estoquista/Visualizar/} + ${game.id_produto}" th:method="get">
-                <button class="btn btn-outline-info btn-sm" type="submit" value="submit">Visualizar</button>
-              </form>
-            </td>
-            <td class="text-center">
-             <form action="#" th:action="${'/estoquista/' + game.id_produto}" th:method="delete">
-                <button class="btn btn-outline-danger btn-sm" type="submit" value="submit">Excluir</button>
-              </form>
-            </td>
-          </tr>
-        </table>
 
-      </div>
-      </div>
-    </main>
-   
-  </body>
+				<!--código omitido-->
+
+
+				<br>
+				<div style="text-align: right">
+					<a href="estoquista/Novo" class="btn btn-success">Adicionar
+						Produto</a>
+				</div>
+				<table class="table table-borderless table-condensed">
+					<thead class="bg-light">
+						<tr>
+							<th class="text-center">Código</th>
+							<th class="text-center">Descrição</th>
+							<th class="text-center">Preço</th>
+							<th class="text-center">Qtde</th>
+							<th class="text-center" colspan="3">Ações</th>
+						</tr>
+					</thead>
+					<tr th:each="game: ${games}">
+						<td class="text-center" th:text="${game.codigo_produto}" />
+						<td class="text-center" th:text="${game.descricao}" />
+						<td class="text-center" th:text="${game.preco_venda}" />
+						<td class="text-center" th:text="${game.quantidade}" />
+						<td class="text-center">
+							<form action="#" th:action="@{/estoquista/} + ${game.id_produto}"
+								th:method="get">
+								<button class="btn btn-outline-info btn-sm" type="submit"
+									value="submit">Atualizar</button>
+							</form>
+						</td>
+						<td class="text-center">
+							<form action="#"
+								th:action="@{/estoquista/Visualizar/} + ${game.id_produto}"
+								th:method="get">
+								<button class="btn btn-outline-info btn-sm" type="submit"
+									value="submit">Visualizar</button>
+							</form>
+						</td>
+						<td class="text-center">
+						
+								
+								
+								<a class="btn btn-outline-danger btn-sm" data-toggle="modal"
+									data-target="#modal-warning"
+									th:attr="data-target='#modal-warning'+${game.id_produto}"><span class="oi oi-brush" title="Remover"
+										aria-hidden="true">Remover</span> </a> 
+
+
+
+
+
+							<div class="modal modal-warning fade in"
+								th:id="modal-warning+${game.id_produto}">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Fechar">
+												<span aria-hidden="true">×</span>
+											</button>
+											<h5 class="modal-title">Remover Produto</h5>
+										</div>
+										<div class="modal-body">
+											<h3>Deseja realmente remover o produto?</h3>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-outline pull-left"
+												data-dismiss="modal">Fechar</button>
+											<a type="button" class="btn btn-outline"
+												th:href="@{/estoquista/deletar/{id_produto}(id_produto=${game.id_produto})}"><i
+												class="fa fa-check"></i>&nbsp;Sim</a>
+										</div>
+									</div>
+								</div>
+							</div></td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+	</main>
+
+</body>
 </html>

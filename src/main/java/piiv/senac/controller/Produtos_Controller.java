@@ -158,11 +158,12 @@ public class Produtos_Controller {
 		return mv;
 	}
 
-	@DeleteMapping("/estoquista/{id_produto}")
-	public ModelAndView removeProduto(@PathVariable("id_produto") int id_produto, RedirectAttributes attrib) {
+	@GetMapping("/estoquista/deletar/{id_produto}")
+	public ModelAndView removeProduto(@PathVariable("id_produto") int id_produto) {
+		    
 
 		ProdutoRepository produtoRepository = new ProdutoRepository();
-		produtoRepository.inativarProduto(id_produto);
+		produtoRepository.inativarProduto(id_produto);		
 
 		ModelAndView mv = new ModelAndView("redirect:/estoquista");
 

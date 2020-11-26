@@ -156,7 +156,7 @@
 			<form th:action="@{/clientes/cadastrar}" th:object="${cliente}"
 				 method='POST'>
 				<div class="form-row">
-				<div class="form-group col-md-12">
+				<div class="form-group col-md-10">
 					<label for="nome_completo">Nome Completo</label> <br> <input
 						type="text" class="form-control"
 						placeholder="Digite seu nome completo" th:field="*{nome_completo}"
@@ -209,18 +209,20 @@
 			</form>
 			</div>
 		</div>
-		
+
+		<div class="container">
 		<div class="col-6">
 		<form action="/finalizarCompra/login" method='POST'>
 		<div class="form-row">
-		<div class="form-group col-md-12">
+
+		<div class="form-group col-md-6">
 		<label>Email</label> <input type="text" name="username"
 			class="form-control" placeholder="email"
 			autofocus="autofocus" value="" />
 			<div class="invalid-feedback"></div>
 		</div>
 		
-		<div class="form-group col-md-12">
+		<div class="form-group col-md-6">
 		<label>Senha</label> <input type="password" name ="password"
 			class="form-control" placeholder="senha"
 			autofocus="autofocus" value="" />
@@ -228,10 +230,10 @@
 		</div>
 		</div>
 		
-		<button type="submit" class="btn btn-primary btn-sm">Efetuar Login</button>
+		<button type="submit" class="btn btn-outline-success">Efetuar Login</button>
 		</form>
 		</div>
-		
+		</div>
 	</main>
 	<!-- Footer component start -->
 	<footer class="page-footer">
