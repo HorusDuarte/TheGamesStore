@@ -56,15 +56,7 @@ public class Usuario_Controller {
 
   @PostMapping("/administrativo/Novo")
   public ModelAndView adicionarUsuario(
-          @ModelAttribute(value = "usuario") table_Usuarios u) {
-	  
-	  	if (u.getUsername().length() < 5) {
-      
-    	ModelAndView mv = new ModelAndView("administrativo/backofficeUsuariosNovo");
-    	
-    	mv.addObject("usuario", u);
-      return mv;
-    }
+          @ModelAttribute(value = "usuario") table_Usuarios u) {	  
 
     UsuarioRepository usuarioRepository = new UsuarioRepository();
     usuarioRepository.salvarUsuario(u);

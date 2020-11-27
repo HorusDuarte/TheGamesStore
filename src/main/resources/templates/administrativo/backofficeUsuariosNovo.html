@@ -12,10 +12,45 @@
 	<!--Style-->
 	<link rel="stylesheet" type="text/css" href="/CSS/estilo.css">
 	<link rel="stylesheet" type="text/css" href="/CSS/estilop.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+	
+	<script type="text/javascript">
+      function ValidateNomeLenght() {
+        var username = form1.username.value;
+        if (username.length < 5) {
+          alert("Usuário inválido! Digite o usuário com mais que 5 caracteres");
+          form1.username.focus();
+          
+          return false;
+        }
+        return true;
+      }
+      
+    </script>
+	
+	
 </head>
 <body>
 	<header>
 		<div class="wrapper">
+			<nav>
+				<div class="menu-toggle">
+					<form
+						class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+						<i class="fas fa-search" aria-hidden="true"></i>
+						<div class="pesquisar">
+							<input class="form-control form-control-sm ml-3 w-75" type="text"
+								placeholder="Pesquisar" aria-label="Pesquisar">
+						</div>
+					</form>
+				</div>
+				<div class="brand">
+					<h2>TheGameStore</h2>
+				</div>
+			</nav>
+		</div>
 		<nav class="navbar navbar-dark bg-dark">
 			<a class="nav-item nav-link" href='/home' style="color: white">HOME</a>
 			<a class="nav-item nav-link" href="#" style="color: white">MAIS
@@ -35,23 +70,12 @@
 				href='/administrativo' style="color: white">USUARIOS</a>
 				</security:authorize>
 		</nav>
-		</div>
-		<nav class="navbar navbar-dark bg-dark">
-			<a class="nav-item nav-link" href='/' style="color:white">HOME</a>
-			<a class="nav-item nav-link" href="#" style="color:white">MAIS VENDIDOS</a>
-			<a class="nav-item nav-link" href="#" style="color:white">CONSOLES</a>
-			<a class="nav-item nav-link active" href="#" style="color:white">JOGOS</a>
-			<a class="nav-item nav-link" href="#" style="color:white">ACESSÓRIOS</a>
-			<a class="nav-item nav-link" href="#" style="color:white">LANÇAMENTOS</a>
-			<a class="nav-item nav-link" sec:authorize="hasRole('EDITOR')" href='/estoquista' style="color:white">PRODUTOS</a>
-			<a class="nav-item nav-link" sec:authorize="hasRole('ADMIN')" href='/administrador' style="color:white">USUARIOS</a>	
-		</nav>
 	</header>
     <!-- Menu component end -->
     <main>
       <div class="container">
         <h1 class="display-4" style="margin-top: 3rem">Novo Usuário</h1>
-        <form action="#" th:action="@{/administrativo/Novo}" th:object="${usuario}" method='POST' onsubmit="return validateForm()">
+        <form name="form1" action="#" th:action="@{/administrativo/Novo}" th:object="${usuario}" method='POST' onsubmit="return validateNomeLenght()">
           <div class="form-group">
             <label for="text">Usuário:</label>
             <input type="text" class="form-control w-50" placeholder="Digite o nome" th:field="*{username}" id="username" required>
@@ -79,32 +103,14 @@
           <hr>
 
           <div class="form-group">
-            <button type="submit" value="submit" class="btn btn-outline-success">Cadastrar</button>
+            <button type="submit" value="submit" onclick="return ValidateNomeLenght()" class="btn btn-outline-success">Cadastrar</button>
             <button class="btn btn-outline-info" type="reset" value="reset">Resetar</button>
 
         </form>
       </div>
     </main>
 
-    <script type="text/javascript">
-      function ValidateNomeLenght() {
-        var username = document.getElementById("username").value;
-        if (username.length < 5) {
-          alert("Nome inválido!");
-          return false;
-        }
-        return true;
-      }
-      
-      function ValidateForm() {
-
-        if (ValidatePassword() && ValidateNomeLenght()) {
-          return true;
-        }
-        return false;
-      }
-      
-    </script>
+    
 			<footer class="page-footer">
 		<div class="container text-center text-md-left mt-5">
 			<div class="row mt-3">

@@ -40,6 +40,25 @@ public class Home_Controller {
 		return mv;
 
 	}
+	
+	
+	@GetMapping("/")
+	public ModelAndView showHome() {
+
+		ModelAndView mv = new ModelAndView("geral/home");
+
+		ProdutoRepository produtoRepository = new ProdutoRepository();
+
+		ImagemProdutoRepository imagemProdutoRepository = new ImagemProdutoRepository();
+		List<ImagemProd> listaImagens = imagemProdutoRepository.getImagem();
+
+		mv.addObject("listaImagens", listaImagens);
+		mv.addObject("listaProdutos", produtoRepository.getTable_Produtos());
+
+		return mv;
+
+	}
+	
 
 	@GetMapping("/viewImagem/{imagem}")
 	@ResponseBody
