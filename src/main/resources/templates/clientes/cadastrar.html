@@ -5,62 +5,96 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 <title>TheGameStore</title>
+
 <!--Bootstrap-->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-<!--Font Awesome-->
-<script src="https://kit.fontawesome.com/f2150dbc67.js"
-	crossorigin="anonymous"></script>
+
+	
+	
 <!--Style-->
 <link rel="stylesheet" type="text/css" href="/css/estilo.css">
-</head>
-<body>
-	<header>
-		<div class="wrapper">
-			<nav>
-				<div class="menu-toggle">
-					<form
-						class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-						<i class="fas fa-search" aria-hidden="true"></i>
-						<div class="pesquisar">
-							<input class="form-control form-control-sm ml-3 w-75" type="text"
-								placeholder="Pesquisar" aria-label="Pesquisar">
-						</div>
-					</form>
-				</div>
-				<div class="brand">
-					<h1>TheGameStore</h1>
-				</div>
-				<div class="carrinho-login">
-					<span class="fas fa-user"></span> <a class="fas fa-shopping-cart"
-						style="color: black" href="../carrinho.html"></a>
-				</div>
-			</nav>
-		</div>
-		<nav class="navbar navbar-dark bg-dark">
-			<a class="nav-item nav-link" href='/home' style="color: white">HOME</a>
-			<a class="nav-item nav-link" href="#" style="color: white">MAIS
-				VENDIDOS</a> <a class="nav-item nav-link" href="#" style="color: white">CONSOLES</a>
-			<a class="nav-item nav-link active" href="#" style="color: white">JOGOS</a>
-			<a class="nav-item nav-link" href="#" style="color: white">ACESSÓRIOS</a>
-			<a class="nav-item nav-link" href="#" style="color: white">LANÇAMENTOS</a>
-			<security:authorize
-				access="hasAnyRole('administrador', 'estoquista')">
-				<a class="nav-item nav-link" href='/estoquista' style="color: white">PRODUTOS</a>
-			</security:authorize>
-			
-			
-				<security:authorize
-				access="hasRole('administrador')">
-			<a class="nav-item nav-link"
-				href='/administrativo' style="color: white">USUARIOS</a>
-				</security:authorize>
-		</nav>
-	</header>
 
-	<script type="text/javascript">
+  <!-- Adicionando JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+<!-- Adicionando Javascript -->
+    <script>
+    
+    function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('rua').value=("");
+            document.getElementById('bairro').value=("");
+            document.getElementById('cidade').value=("");
+            document.getElementById('uf').value=("");
+            
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('rua').value=(conteudo.logradouro);
+            document.getElementById('bairro').value=(conteudo.bairro);
+            document.getElementById('cidade').value=(conteudo.localidade);
+            document.getElementById('uf').value=(conteudo.uf);
+         
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+        
+    function pesquisacep(valor) {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if(validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('rua').value="...";
+                document.getElementById('bairro').value="...";
+                document.getElementById('cidade').value="...";
+                document.getElementById('uf').value="...";
+               
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    };
+
+    </script>
+    
+    <script type="text/javascript">
 		function fMasc(objeto, mascara) {
 			obj = objeto
 			masc = mascara
@@ -112,43 +146,62 @@
 			return num
 		}
 	</script>
-</head>
 
+
+</head>
 <body>
-	<!-- Menu component start -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarTogglerDemo03"
-			aria-controls="navbarTogglerDemo03" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<a class="navbar-brand" href="#">The GamesStore</a>
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<!--
-        <li class="nav-item">
-          <a class="nav-link" href="/Backoffice/Home">HOME</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/Backoffice/Produtos">PRODUTOS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">CLIENTES</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">VENDAS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">RELATÓRIOssS</a>
-        </li>
-        -->
-			</ul>
+	<header>
+		<div class="wrapper">
+			<nav>
+				<div class="menu-toggle">
+					<form
+						class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+						<i class="fas fa-search" aria-hidden="true"></i>
+						<div class="pesquisar">
+							<input class="form-control form-control-sm ml-3 w-75" type="text"
+								placeholder="Pesquisar" aria-label="Pesquisar">
+						</div>
+					</form>
+				</div>
+				<div class="brand">
+					<h1>TheGameStore</h1>
+				</div>
+				<div class="carrinho-login">
+					<span class="fas fa-user"></span> <a class="fas fa-shopping-cart"
+						style="color: black" href="../carrinho.html"></a>
+				</div>
+			</nav>
 		</div>
-	</nav>
-	<!-- Menu component end -->
-	<main>
-		<div class="container">
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="nav-item nav-link" href='/home' style="color: white">HOME</a>
+			<a class="nav-item nav-link" href="#" style="color: white">MAIS
+				VENDIDOS</a> <a class="nav-item nav-link" href="#" style="color: white">CONSOLES</a>
+			<a class="nav-item nav-link active" href="#" style="color: white">JOGOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">ACESSÓRIOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">LANÇAMENTOS</a>
+			<security:authorize
+				access="hasAnyRole('administrador', 'estoquista')">
+				<a class="nav-item nav-link" href='/estoquista' style="color: white">PRODUTOS</a>
+			</security:authorize>
+			
+			
+				<security:authorize 	
+				
+				access="hasRole('administrador')">
+			<a class="nav-item nav-link"
+				href='/administrativo' style="color: white">USUARIOS</a>>
+			
+				</security:authorize>
+		</nav>
+	</header>
+
+    </head>
+
+    <body>
+
+      
+      
+      <div class="container">
 			<h1 class="display-4" style="margin-top: 3rem">Cadastro de
 				Clientes</h1>
 			<br>
@@ -169,23 +222,54 @@
 					<label for="cpf">CPF:</label> <input type="text" name="cpf"
 						class="form-control" placeholder="Digite seu CPF"
 						th:field="*{cpf}" id="cpf"
-						onkeydown="javascript: fMasc( this, mCPF );" required>
+						onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" required>
 						<div class="invalid-feedback"></div>
 				</div>
+				
 
 				<div class="form-group col-md-6">
-					<label for="text">Endereço:</label> <input type="text"
-						class="form-control" placeholder="Digite seu enderço "
-						th:field="*{endereco}" id="endereco" required>
-						<div class="invalid-feedback"></div>
-				</div>
-
-				<div class="form-group col-md-6">
-					<label for="text">Cep:</label> <input type="text"
+					<label for="text">CEP:</label> <input type="text"
 						class="form-control" placeholder="Digite seu cep "
-						th:field="*{cep}" id="cep" required>
+						th:field="*{cep}" id="cep" name="cep" value="" size="10" maxlength="9"
+						onblur="pesquisacep(this.value);"
+						
+						>
 						<div class="invalid-feedback"></div>
 				</div>
+				
+				
+				<div class="form-group col-md-6">
+					<label for="text">Rua:</label> <input type="text"
+						class="form-control" name ="rua" placeholder="Digite seu endereço "
+						th:field="*{endereco}" id="rua" size="60" required >
+						<div class="invalid-feedback"></div>
+				</div>
+			
+				<div class="form-group col-md-6">
+					<label for="text">Bairro:</label> <input type="text"
+						class="form-control" name ="bairro" placeholder="Digite seu bairro"
+						th:field="*{bairro}" id="bairro" size="40" required >
+						<div class="invalid-feedback"></div>
+				</div>
+				
+			
+				
+				<div class="form-group col-md-6">
+					<label for="text">Cidade:</label> <input type="text"
+						class="form-control" name ="cidade" placeholder="Digite sua cidade"
+						th:field="*{cidade}" id="cidade" size="40" required >
+						<div class="invalid-feedback"></div>
+				</div>
+				
+				
+				<div class="form-group col-md-6">
+					<label for="text">Estado:</label> <input type="text"
+						class="form-control" name ="uf" placeholder="Digite o estado"
+						th:field="*{uf}" id="uf" size="2" required>
+						<div class="invalid-feedback"></div>
+				</div>
+			
+						
 
 				<div class="form-group col-md-6">
 					<label for="text">Usuario:</label> <input type="text"
@@ -207,8 +291,6 @@
 						class="btn btn-outline-success">Cadastrar</button>
 			</div>
 			</form>
-			</div>
-		</div>
 
 		<div class="container">
 		<div class="col-6">

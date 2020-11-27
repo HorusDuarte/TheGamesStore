@@ -8,14 +8,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import piiv.senac.dao.ProdutoRepository;
 import piiv.senac.entity.ItensCompra;
+import piiv.senac.entity.table_Cliente;
 import piiv.senac.entity.table_Compra;
 import piiv.senac.entity.table_Produtos;
 
@@ -27,7 +30,11 @@ public class Carrinho_Controller {
 	private List<ItensCompra> ITENS_COMPRAS = new ArrayList<ItensCompra>();
 	private table_Compra compra = new table_Compra();
 	
+	private table_Cliente cliente;
+
+	
 private ProdutoRepository produtoRepository = new ProdutoRepository();
+
 
 
 private void calcularTotal() {
@@ -139,6 +146,6 @@ private void calcularTotal() {
 		}
 		return null;
 	}
-
+	
 
 }

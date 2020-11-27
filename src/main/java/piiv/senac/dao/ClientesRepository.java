@@ -22,14 +22,17 @@ public void salvar(table_Cliente c) {
     PreparedStatement stmt = null;
 
     try {
-        stmt = con.prepareStatement("insert into table_Cliente (nome_completo,cpf,endereco,cep,usuario,senha) values (?, ?,?,?,?,?);");
+        stmt = con.prepareStatement("insert into table_Cliente (nome_completo, cpf, endereco, cep, bairro, cidade, uf, usuario, senha) values (?,?,?,?,?,?,?,?,?);");
 
         stmt.setString(1, c.getNome_completo());
         stmt.setString(2, c.getCpf());
         stmt.setString(3, c.getEndereco());
         stmt.setString(4, c.getCep());
-        stmt.setString(5, c.getUsuario());
-        stmt.setString(6, new BCryptPasswordEncoder().encode(c.getSenha()));
+        stmt.setString(5, c.getBairro());
+        stmt.setString(6, c.getCidade());
+        stmt.setString(7, c.getUf());   
+        stmt.setString(8, c.getUsuario());
+        stmt.setString(9, new BCryptPasswordEncoder().encode(c.getSenha()));
         
       
         stmt.executeUpdate();
@@ -61,6 +64,10 @@ public List<table_Cliente> getTable_Cliente() {
     	 p.setCpf(rs.getString("cpf"));
     	 p.setEndereco(rs.getString("endereco"));
     	 p.setCep(rs.getString("cep"));
+    	 p.setBairro(rs.getString("bairro"));
+    	 p.setUf(rs.getString("uf"));
+    	 p.setCidade(rs.getString("cidade"));
+
     	 p.setUsuario(rs.getString("usuario"));
     	 p.setSenha(rs.getString("senha"));
     	 
@@ -91,6 +98,9 @@ public table_Cliente getClientes(int id_cliente) {
       c.setId_cliente(rs.getInt("id_cliente"));
       c.setCep(rs.getString("cep"));
       c.setEndereco(rs.getString("endereco"));
+      c.setBairro(rs.getString("bairro"));
+      c.setCidade(rs.getString("cidade"));
+      c.setUf(rs.getString("uf"));
       c.setNome_completo(rs.getString("nome_completo"));
       c.setSenha(rs.getString("senha"));
       c.setUsuario(rs.getString("usuario"));
@@ -109,15 +119,18 @@ public void alterarCliente(table_Cliente c) {
     PreparedStatement stmt = null;
 
     try {
-      stmt = con.prepareStatement("update table_Cliente set nome_completo = ?, endereco = ?, cep = ?, usuario= ?, senha= ? where id_cliente = ?;");
+      stmt = con.prepareStatement("update table_Cliente set nome_completo = ?, endereco = ?, cep = ?, bairro=?, cidade=?, uf=?, usuario= ?, senha= ? where id_cliente = ?;");
       
       
       stmt.setString(1, c.getNome_completo());
       stmt.setString(2, c.getEndereco());
       stmt.setString(3, c.getCep());
-      stmt.setString(4, c.getUsuario());
-      stmt.setString(5, new BCryptPasswordEncoder().encode(c.getSenha()));
-      stmt.setInt(6, c.getId_cliente());
+      stmt.setString(4, c.getBairro());
+      stmt.setString(5, c.getCidade());
+      stmt.setString(6, c.getUf());
+      stmt.setString(7, c.getUsuario());
+      stmt.setString(8, new BCryptPasswordEncoder().encode(c.getSenha()));
+      stmt.setInt(9, c.getId_cliente());
 
       
       stmt.executeUpdate();

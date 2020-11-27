@@ -17,6 +17,9 @@ public class table_Cliente {
 	    private String cep;
 	    private String usuario;
 	    private String senha;
+	    private String bairro;
+	    private String cidade;
+	    private String uf;
 	}
 
 
