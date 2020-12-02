@@ -10,7 +10,6 @@
 
 <!-- 
 
-hm
  -->
  
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -82,14 +81,7 @@ hm
 				<h1>Consulta de Produtos</h1>
 			</div>
 
-			<div
-				th:class="${#strings.isEmpty(message)} ?
-  'panel panel-default' : 'panel panel-success'">
-
-				<div class="panel-heading">
-					<span th:text="${#strings.isEmpty(message)} ? '' : ${message}">
-					</span>
-				</div>
+			<div th:if="${msgSucesso != null}" th:text="${msgSucesso}" class="alert alert-success" role="alert"></div>
 
 
 				<!--código omitido-->
@@ -148,19 +140,19 @@ hm
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
+											<h5 class="modal-title">Remover Produto</h5>
 											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Fechar">
-												<span aria-hidden="true">×</span>
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
 											</button>
-											<h2 class="modal-title">Remover Produto</h2>
 										</div>
 										<div class="modal-body">
-											<h3>Deseja realmente remover o produto?</h3>
+											<p>Deseja realmente remover o produto?</p>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-outline pull-left"
+											<button type="button" class="btn btn-outline-dark"
 												data-dismiss="modal">Fechar</button>
-											<a type="button" class="btn btn-outline"
+											<a type="button" class="btn btn-danger"
 												th:href="@{/estoquista/deletar/{id_produto}(id_produto=${game.id_produto})}"><i
 												class="fa fa-check"></i>&nbsp;Sim</a>
 										</div>
@@ -171,7 +163,7 @@ hm
 				</table>
 
 			</div>
-		</div>
+
 	</main>
 
 </body>

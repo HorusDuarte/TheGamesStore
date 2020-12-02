@@ -101,21 +101,21 @@
 		<div class="produto-titulo">
 			<h2>Mais Vendidos</h2>
 		</div>
-
-			<div class="page" th:each="produto : ${listaProdutos}">
+		<section class="mais-vendidos">
+			
 				<!--For Row containing all card-->
 				<div class="row">
 					<!--Card 1-->
-					<div class="col-sm">
+					<div class="col-sm"  th:each="produto : ${listaProdutos}">
 						<div class="card card-cascade card-ecommerce wider shadow mb-5 ">
 							<!--Card image-->
-							
+							<div class="view view-cascade overlay text-center"> <img class="card-img-top" th:src="@{/viewImagem/{imagem}(imagem=${produto.endereco_imagem})}" alt=""> <a>
+								<div class="mask rgba-white-slight"></div>
+							</a> </div>
 							<!--Card Body-->
 							<div class="card-body card-body-cascade text-center">
 								<!--Card Title-->
-
-								<img th:src="@{/viewImagem/{imagem}(imagem=${produto.endereco_imagem})}" >
-								<h4 class="card-title"><span th:text="${produto.descricao}"></span> </h4>
+								<h4 class="card-title"><strong><a href="#" th:text="${produto.descricao}"></a></strong></h4>
 								<!-- Card Description-->
 								<p class="card-text" th:text="${produto.descricao_detalhada}"></p>
 								<p class="price" th:text="'R$ ' + ${produto.preco_venda}"></p>
@@ -134,9 +134,10 @@
 							</div>
 						</div>
 					</div>
-							</div>
-						</div>
-	
+					
+					</div>
+
+		</section>
 	</main>
 	<!-- Footer -->
 	<footer class="page-footer">
@@ -168,6 +169,7 @@
 						<a class="ins-ic"><i class="fab fa-instagram white-text" style="color: black"></i></a>
 					</p>
 				</div>
+			</div>
 			</div>
 		</footer>
 		<!--Footer-->

@@ -14,21 +14,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.logging.Logger;
 
 import java.util.List;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import org.springframework.ui.Model;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -129,7 +125,7 @@ public class Produtos_Controller {
 
 	@PostMapping("/estoquista/Novo")
 	public ModelAndView adicionarProduto(@ModelAttribute(value = "produto") table_Produtos p,
-			@RequestParam("file") MultipartFile arquivo) {
+			@RequestParam("file") MultipartFile arquivo, RedirectAttributes redirAttr) {
 
 		ProdutoRepository produtoRepository = new ProdutoRepository();
 
@@ -148,12 +144,19 @@ public class Produtos_Controller {
 
 				p.setEndereco_imagem(String.valueOf(tableProdutos.getId_produto()) + arquivo.getOriginalFilename());
 				produtoRepository.salvarProduto(p);
+				
+				redirAttr.addFlashAttribute("msgSucesso", "Produto salvo com sucesso");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		
 		produtoRepository.salvarProduto(p);
 		ModelAndView mv = new ModelAndView("redirect:/estoquista");
+		
+
+		
 
 		return mv;
 	}
@@ -164,7 +167,7 @@ public class Produtos_Controller {
 
 		ProdutoRepository produtoRepository = new ProdutoRepository();
 		produtoRepository.inativarProduto(id_produto);		
-		attrib.addFlashAttribute("message", "Produto removido com sucesso.");
+		attrib.addFlashAttribute("msgSucesso", "Produto removido com sucesso");
 
 		ModelAndView mv = new ModelAndView("redirect:/estoquista");
 
