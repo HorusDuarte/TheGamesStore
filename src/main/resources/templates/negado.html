@@ -3,14 +3,23 @@
 xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-<meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
 <meta http-equiv="Contet-Type" content="text/html: charset=UTF-8" />
 <meta name="viewport" content="width-devide-width" />
 <title>Login</title>
 </head>
 <body>
 
-<h1>Acesso não permitido</h1>
-<a href="logout">Sair</a>
+<center>
+<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+    <div class="card-header">Erro!</div>
+    <div class="card-body">
+        <h5 class="card-title">Acesso Negado </h5>
+        <p class="card-text">Seu acesso foi bloqueado,por favor clique em <a href="logout">Sair</a> </p>
+    </div>
+</center>
+
 </body>
 </html>
