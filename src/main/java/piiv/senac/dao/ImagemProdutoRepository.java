@@ -81,6 +81,8 @@ public class ImagemProdutoRepository {
 	      ConnectionBancoDados.fecharConexao(con, stmt, rs);
 	    }
 	  }
+	  
+	  /*
 	  public List<ImagemProd> getImagem() {
 		    Connection con = ConnectionBancoDados.obterConexao();
 		    PreparedStatement stmt = null;
@@ -106,5 +108,5 @@ public class ImagemProdutoRepository {
 		    }
 		    return listaImagens;
 		  }
-
+*/
 		}
