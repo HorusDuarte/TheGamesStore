@@ -65,6 +65,15 @@
 	</header>
 	<main>
 	
+	<div>
+	
+	<h3><span th:text="${cliente.nome_completo}"> </span></h3>
+	<h3><span th:text="${cliente.endereco}"> </span></h3>
+	<h3><span th:text="${cliente.bairro}"> </span></h3>
+	<h3><span th:text="${cliente.uf}"> </span></h3>
+	
+	</div>
+	
 		<div class="container pb-5 mt-n2 mt-md-n">
 			<div class="row">
 				<div class="col">
@@ -125,7 +134,7 @@
 						</div>
 						<hr>
 
-						<a class="btn btn-primary btn-block" href="/clientes/cadastrar"> <svg width="24"
+						<a class="btn btn-primary btn-block" href="/salvarPedido" th:method="post"> <svg width="24"
 								height="24" viewBox="0 0 24 24" fill="none"
 								stroke="currentColor" stroke-width="2" stroke-linecap="round"
 								stroke-linejoin="round" class="feather feather-credit-card mr-2">

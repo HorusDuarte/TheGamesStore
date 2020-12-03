@@ -81,17 +81,17 @@ public class ImagemProdutoRepository {
 	      ConnectionBancoDados.fecharConexao(con, stmt, rs);
 	    }
 	  }
+	  
+	  /*
 	  public List<ImagemProd> getImagem() {
 		    Connection con = ConnectionBancoDados.obterConexao();
 		    PreparedStatement stmt = null;
 		    ResultSet rs = null;
-
 		    List<ImagemProd> listaImagens = new ArrayList<>();
 		      
 		    try {
 		      stmt = con.prepareStatement("select imagens_produto.* from imagens_produto inner join table_Produtos on (imagens_produto.id_produto = id_produto) where table_produtos.ativo = 1 group by imagens_produto.id_produto;");
 		      rs = stmt.executeQuery();
-
 		      while (rs.next()) {
 		        ImagemProd i = new ImagemProd();
 		        i.setId_imagem_produto(rs.getInt("id"));
@@ -106,5 +106,5 @@ public class ImagemProdutoRepository {
 		    }
 		    return listaImagens;
 		  }
-
+*/
 		}

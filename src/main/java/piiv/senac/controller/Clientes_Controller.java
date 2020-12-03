@@ -24,6 +24,19 @@ public class Clientes_Controller {
 
 		return mv;
 	}
+	
+	@GetMapping("/clientes/loginCliente")
+	public ModelAndView exibirLoginCliente() {
+
+		table_Cliente c = new table_Cliente();
+
+		ModelAndView mv = new ModelAndView("clientes/loginCliente");
+
+		mv.addObject("cliente", c);
+
+		return mv;
+	}
+	
 
 	@PostMapping("/clientes/cadastrar")
 	public String cadastrarCliente(@ModelAttribute(value = "cliente") table_Cliente c) {

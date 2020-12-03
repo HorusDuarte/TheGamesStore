@@ -43,8 +43,8 @@ public class SecurityCliente extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.antMatcher("/finalizarCompra/**").authorizeRequests().anyRequest().hasAnyAuthority("cliente")
-		.and().csrf().disable().formLogin().loginPage("/clientes/cadastrar").permitAll()
-		.failureUrl("/clientes/cadastrar").loginProcessingUrl("/finalizarCompra/login")
+		.and().csrf().disable().formLogin().loginPage("/clientes/loginCliente").permitAll()
+		.failureUrl("/clientes/loginCliente").loginProcessingUrl("/finalizarCompra/login")
 		.defaultSuccessUrl("/finalizarCompra")
 		.usernameParameter("username").passwordParameter("password")
 		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/finalizarCompra/logout"))

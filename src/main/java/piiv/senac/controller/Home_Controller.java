@@ -31,9 +31,9 @@ public class Home_Controller {
 		ProdutoRepository produtoRepository = new ProdutoRepository();
 
 		ImagemProdutoRepository imagemProdutoRepository = new ImagemProdutoRepository();
-		List<ImagemProd> listaImagens = imagemProdutoRepository.getImagem();
 
-		mv.addObject("listaImagens", listaImagens);
+
+//		mv.addObject("listaImagens", listaImagens);
 		mv.addObject("listaProdutos", produtoRepository.getTable_Produtos());
 
 		return mv;
@@ -49,9 +49,9 @@ public class Home_Controller {
 		ProdutoRepository produtoRepository = new ProdutoRepository();
 
 		ImagemProdutoRepository imagemProdutoRepository = new ImagemProdutoRepository();
-		List<ImagemProd> listaImagens = imagemProdutoRepository.getImagem();
+		//List<ImagemProd> listaImagens = imagemProdutoRepository.getImagem();
 
-		mv.addObject("listaImagens", listaImagens);
+		//mv.addObject("listaImagens", listaImagens);
 		mv.addObject("listaProdutos", produtoRepository.getTable_Produtos());
 
 		return mv;

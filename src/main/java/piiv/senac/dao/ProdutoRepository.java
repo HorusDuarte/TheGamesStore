@@ -160,9 +160,27 @@ public class ProdutoRepository{
 	    }
 	  }
 
-	}
+	  public void finalizarPedido(table_Produtos p) {
+		    Connection con = ConnectionBancoDados.obterConexao();
+		    PreparedStatement stmt = null;
 
-	
-	
-	
-	
+		    try {
+		      stmt = con.prepareStatement("update table_Pedidos set descricao = ?, preco_custo = ?, preco_venda = ?, quantidade = ?, codigo_produto = ?, descricao_detalhada= ? where id_produto = ?;");
+		      
+		      stmt.setString(1, p.getDescricao());
+		      stmt.setDouble(2, p.getPreco_custo());
+		      stmt.setDouble(3, p.getPreco_venda());
+		      stmt.setInt(4, p.getQuantidade());
+		      stmt.setString(5, p.getCodigo_produto());
+		      stmt.setInt(6, p.getId_produto());
+		      stmt.setString(7, p.getDescricao_detalhada());
+		      
+		      stmt.executeUpdate();
+		    } catch (SQLException ex) {
+		      Logger.getLogger(ProdutoRepository.class.getName()).log(Level.SEVERE, null, ex);
+		    } finally {
+		    	ConnectionBancoDados.fecharConexao(con, stmt);
+		    }
+		  }
+	  
+	}
