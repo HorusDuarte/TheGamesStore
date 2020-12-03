@@ -83,7 +83,7 @@ public class Carrinho_Controller {
 		return mv;
 	}
 
-	@PostMapping("/salvarPedido")
+	@GetMapping("/salvarPedido")
 	public String salvarPedido() {
 		buscarUsuarioLogado();
 		ModelAndView mv = new ModelAndView("geral/finalizarCompra");
@@ -99,7 +99,7 @@ public class Carrinho_Controller {
 	
 	@GetMapping("/consultarPedido")
 	public ModelAndView consultarPedido() {
-		ModelAndView mv = new ModelAndView("geral/nomeDapaginaQueMostraPedidos");
+		ModelAndView mv = new ModelAndView("clientes/pedidosCliente");
 		buscarUsuarioLogado();
 		//Aqui busca todos os pedidos do cliente logado
 		List<Pedido> listPedidos = pedidoRepository.getPedido(cliente.getCpf());
