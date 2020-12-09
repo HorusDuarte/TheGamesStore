@@ -45,7 +45,8 @@ public class Carrinho_Controller {
 	private PedidoRepository pedidoRepository = new PedidoRepository();
 
 	private void calcularTotal() {
-		compra.setValorTotal(0.);
+		compra
+				.setValorTotal(0.);
 		for (ItensCompra it : itensCompra) {
 			compra.setValorTotal(compra.getValorTotal() + it.getValorTotal());
 		}
@@ -93,10 +94,10 @@ public class Carrinho_Controller {
 		pedido.setItensCompra(itensCompra);
 		pedido.setTotalPedido(compra.getValorTotal());
 		pedidoRepository.salvar(pedido);
-		
+
 		return "redirect:/consultarPedido";
 	}
-	
+
 	@GetMapping("/consultarPedido")
 	public ModelAndView consultarPedido() {
 		ModelAndView mv = new ModelAndView("clientes/pedidosCliente");
@@ -104,6 +105,17 @@ public class Carrinho_Controller {
 		//Aqui busca todos os pedidos do cliente logado
 		List<Pedido> listPedidos = pedidoRepository.getPedido(cliente.getCpf());
 		mv.addObject("listPedidos", listPedidos);
+		return mv;
+	}
+
+
+	@GetMapping("/consultarPedido/{idPedido}")
+	public ModelAndView consultarDetalhes( @PathVariable Integer idPedido) {
+		ModelAndView mv = new ModelAndView("clientes/pedidoItem");
+		buscarUsuarioLogado();
+
+		List<ItensCompra> listItens = pedidoRepository.getProdutosPedido(idPedido);
+		mv.addObject("listItens", listItens);
 		return mv;
 	}
 

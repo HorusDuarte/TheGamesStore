@@ -10,6 +10,17 @@
 	<script src="https://kit.fontawesome.com/f2150dbc67.js" crossorigin="anonymous"></script>
 	<!--Style-->
 	<link rel="stylesheet" type="text/css" href="/css/estilo.css">
+	<style>
+	#conteudo{
+    width:500px;
+    height:500px;
+
+}
+#conteudo > img {
+    width: 100%;
+    height: 100%;
+}
+	</style>
 </head>
 <body>
 	<header>
@@ -104,12 +115,13 @@
 		<section class="mais-vendidos">
 			
 				<!--For Row containing all card-->
-				<div class="row">
+
+			<div class="row">
 					<!--Card 1-->
 					<div class="col-sm"  th:each="produto : ${listaProdutos}">
 						<div class="card card-cascade card-ecommerce wider shadow mb-5 ">
 							<!--Card image-->
-							<div class="view view-cascade overlay text-center"> <img class="card-img-top" th:src="@{/viewImagem/{imagem}(imagem=${produto.endereco_imagem})}" alt=""> <a>
+							<div id ='conteudo' class="view view-cascade overlay text-center"> <img class="card-img-top" th:src="@{/viewImagem/{imagem}(imagem=${produto.endereco_imagem})}" alt=""> <a>
 								<div class="mask rgba-white-slight"></div>
 							</a> </div>
 							<!--Card Body-->
@@ -136,6 +148,7 @@
 					</div>
 					
 					</div>
+
 
 		</section>
 	</main>
