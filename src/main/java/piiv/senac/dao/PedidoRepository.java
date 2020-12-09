@@ -63,8 +63,8 @@ public class PedidoRepository {
 				table_Produtos tbProdutos = new table_Produtos();
 				ProdutoRepository produtoRepository = new ProdutoRepository();
 				tbProdutos = produtoRepository.getProdutos(rs.getInt("id_produto"));
-				tbProdutos.setPreco_venda(rs.getDouble("preco_venda"));
-				tbProdutos.setDescricao(rs.getString("descricao"));
+			//	tbProdutos.setPreco_venda(rs.getDouble("preco_venda"));
+			//	tbProdutos.setDescricao(rs.getString("descricao"));
 				item.setTable_Produtos(tbProdutos);
 				listItens.add(item);
 			}

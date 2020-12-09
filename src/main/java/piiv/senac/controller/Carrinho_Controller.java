@@ -115,6 +115,7 @@ public class Carrinho_Controller {
 		buscarUsuarioLogado();
 
 		List<ItensCompra> listItens = pedidoRepository.getProdutosPedido(idPedido);
+		mv.addObject("compra", compra);
 		mv.addObject("listItens", listItens);
 		return mv;
 	}

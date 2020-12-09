@@ -91,8 +91,8 @@
 					<div th:each="item: ${listaItens}"
 						class="d-sm-flex justify-content-between my-4 pb-4 border-bottom">
 						<div class="media d-block d-sm-flex text-center text-sm-left">
-							<a class="cart-item-thumb mx-auto mr-sm-4" href="#"><img
-								src="./Imagens/lastofus.jpg" alt="Product"></a>
+								<a class="cart-item-thumb mx-auto mr-sm-4" href="#">
+								<img th:src="@{/carrinho/mostrarImg/{imagem}(imagem=${item.table_Produtos.endereco_imagem})}" alt="Product"></a>
 							<div class="media-body pt-3">
 								<h3 th:text="${item.table_Produtos.descricao}"
 									class="product-card-title font-weight-semibold border-0 pb-0">
