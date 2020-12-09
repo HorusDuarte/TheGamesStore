@@ -51,13 +51,14 @@ public class PedidoRepository {
 		Connection con = ConnectionBancoDados.obterConexao();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		ItensCompra item = new ItensCompra();
+		
 		List<ItensCompra> listItens = new ArrayList<>();
 		try {
 			stmt = con.prepareStatement("SELECT * FROM table_itenspedidos WHERE idPedido = " + idPedido);
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
+				ItensCompra item = new ItensCompra();
 				item.setQuantidade(rs.getInt("quantidade"));
 				item.setValorTotal(rs.getDouble("valorTotal"));
 				table_Produtos tbProdutos = new table_Produtos();
