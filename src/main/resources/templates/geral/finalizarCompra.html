@@ -64,22 +64,28 @@
 		</nav>
 	</header>
 	<main>
-	
-	<div>
-	
-	<h3><span th:text="${cliente.nome_completo}"> </span></h3>
-	<h3><span th:text="${cliente.endereco}"> </span></h3>
-	<h3><span th:text="${cliente.bairro}"> </span></h3>
-	<h3><span th:text="${cliente.uf}"> </span></h3>
-	
-	</div>
-	
+
+		<div class="card" style="width: 18rem;">
+			<img class="card-img-top" src="https://png.pngtree.com/png-vector/20190225/ourlarge/pngtree-vector-avatar-icon-png-image_702436.jpg" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">Dados do Cliente:</h5>
+				<p class="card-text"></p>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"> <span th:text="${cliente.nome_completo}"> </span> </li>
+				<li class="list-group-item"> <span th:text="${cliente.endereco}"> </span> </li>
+				<li class="list-group-item"> <span th:text="${cliente.bairro}"> </span></li>
+				<li class="list-group-item"> <span th:text="${cliente.uf}"> </span> </li>
+			</ul>
+		</div>
+		<br>
+		<br>
 		<div class="container pb-5 mt-n2 mt-md-n">
 			<div class="row">
 				<div class="col">
 					<h2
 						class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary">
-						<span>Produtos</span><a class="font-size-sm" href="/"><svg
+						<span><h2>PRODUTOS:</h2></span><a class="font-size-sm" href="/"><svg
 								width="24" height="24" viewBox="0 0 24 24" fill="none"
 								stroke="currentColor" stroke-width="2" stroke-linecap="round"
 								stroke-linejoin="round"
