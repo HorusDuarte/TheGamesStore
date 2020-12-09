@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<title>Carrinho</title>
+<!--Bootstrap-->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+	rel="stylesheet" />
+<!--Font Awesome-->
+<script src="https://kit.fontawesome.com/f2150dbc67.js"
+	crossorigin="anonymous"></script>
+<!--Style-->
+<link rel="stylesheet" type="text/css" href="/css/estilo.css">
+<link rel="stylesheet" type="text/css" href="/css/estiloc.css">
+</head>
+<body>
+	<header>
+		<div class="wrapper">
+			<nav>
+				<div class="menu-toggle">
+					<form
+						class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+						<i class="fas fa-search" aria-hidden="true"></i>
+						<div class="pesquisar">
+							<input class="form-control form-control-sm ml-3 w-75" type="text"
+								placeholder="Pesquisar" aria-label="Pesquisar">
+						</div>
+					</form>
+				</div>
+				<div class="brand">
+					<h2>TheGameStore</h2>
+				</div>
+				<div class="carrinho-login">
+					<span class="fas fa-user"></span> <span
+						class="fas fa-shopping-cart"></span>
+				</div>
+			</nav>
+		</div>
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="nav-item nav-link" href='/home' style="color: white">HOME</a>
+			<a class="nav-item nav-link" href="#" style="color: white">MAIS
+				VENDIDOS</a> <a class="nav-item nav-link" href="#" style="color: white">CONSOLES</a>
+			<a class="nav-item nav-link active" href="#" style="color: white">JOGOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">ACESSÓRIOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">LANÇAMENTOS</a>
+			<security:authorize
+				access="hasAnyRole('administrador', 'estoquista')">
+				<a class="nav-item nav-link" href='/estoquista' style="color: white">PRODUTOS</a>
+			</security:authorize>
+
+
+			<security:authorize access="hasRole('administrador')">
+				<a class="nav-item nav-link" href='/administrativo'
+					style="color: white">USUARIOS</a>
+			</security:authorize>
+		</nav>
+	</header>
+	<main>
+
+
+		<div class="container pb-5 mt-n2 mt-md-n">
+			<div class="row">
+				<div class="col">
+					<h2
+						class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary">
+						<span>Produtos</span><a class="font-size-sm" href="/"><svg
+								width="24" height="24" viewBox="0 0 24 24" fill="none"
+								stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round"
+								class="feather feather-chevron-left pull-right"
+								style="width: 100%; height: 1rem;">
+								</svg></a>
+					</h2>
+					<!-- Item-->
+					<div th:each="item: ${listItens}"
+						class="d-sm-flex justify-content-between my-4 pb-4 border-bottom">
+						<div class="media d-block d-sm-flex text-center text-sm-left">
+						<a class="cart-item-thumb mx-auto mr-sm-4" href="#"> <img
+								th:src="@{/carrinho/mostrarImg/{imagem}(imagem=${item.table_Produtos.endereco_imagem})}"
+								alt="Product"></a>
+							
+							<div class="media-body pt-3">
+							
+								<div th:text="'R$ ' + ${item.valorTotal}"
+									class="font-size-lg text-primary pt-2"></div>
+							</div>
+						</div>
+						<div
+							class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left"
+							style="max-width: 10rem;">
+							<div class="form-group mb-2">
+								<label for="quantity1">Quantidade</label> <br> <span
+									th:text="${item.quantidade}"></span>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-xl-3 col-md-4 pt-3 pt-md-0 pull-right">
+						</div>
+						<hr>
+
+						<h2 class="h6 px-4 py-3 bg-secondary text-center"
+							style="display: inline;">Vl.Frete</h2>
+						<div class="h3 font-weight-semibold py-3" style="display: inline;"></div>
+						<hr>
+						<hr>
+
+					</div>
+				</div>
+			</div>
+
+
+	</main>
+	<!-- Footer -->
+	<footer class="page-footer">
+		<div class="container text-center text-md-left mt-5">
+			<div class="row mt-3">
+				<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+					<h5 class="text-uppercase font-weight-bold">The GameStore</h5>
+					<hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+					<p>Projeto Integrador IV - 2020</p>
+				</div>
+				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+					<h5 class="text-uppercase font-weight-bold">Formas de
+						Pagamento</h5>
+					<hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+					<p>Cartões de Crédito</p>
+					<p>Cartões de Débito</p>
+					<p>Boleto</p>
+				</div>
+				<div
+					class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 footer-links">
+					<!-- Links -->
+					<h5 class="text-uppercase font-weight-bold">Redes Sociais</h5>
+					<hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+					<!-- Facebook -->
+					<p class="my-md-4 footer-links">
+						<a class="fb-ic"><i class="fab fa-facebook-f white-text mr-4"
+							style="color: black"></i></a>
+						<!-- Twitter -->
+						<a class="tw-ic"><i class="fab fa-twitter white-text mr-4"
+							style="color: black"></i></a>
+						<!--Instagram-->
+						<a class="ins-ic"><i class="fab fa-instagram white-text"
+							style="color: black"></i></a>
+					</p>
+				</div>
+			</div>
+	</footer>
+	<!--Footer-->
+	<div class="mobile-menu">
+		<div class="menu-item">
+			<span class="fas fa-ghost"></span>
+			<p>Jogos</p>
+		</div>
+		<div class="menu-item">
+			<span class="fas fa-gamepad"></span>
+			<p>Consoles</p>
+		</div>
+		<div class="menu-item">
+			<span class="fas fa-headset"></span>
+			<p>Acessórios</p>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		crossorigin="anonymous"></script>
+</body>
+</html>
