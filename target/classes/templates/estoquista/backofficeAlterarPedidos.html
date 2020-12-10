@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<title>Consulta dos seus pedidos</title>
+
+<!--
+
+     -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
+
+
+<!--Bootstrap-->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<!--Font Awesome-->
+<!--Style-->
+<link rel="stylesheet" type="text/css" href="/CSS/estilo.css">
+<link rel="stylesheet" type="text/css" href="/CSS/estiloc.css">
+
+</head>
+<body>
+	<header>
+		<div class="wrapper">
+			<nav>
+				<div class="menu-toggle">
+					<form
+						class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+						<i class="fas fa-search" aria-hidden="true"></i>
+						<div class="pesquisar">
+							<input class="form-control form-control-sm ml-3 w-75" type="text"
+								placeholder="Pesquisar" aria-label="Pesquisar">
+						</div>
+					</form>
+				</div>
+				<div class="brand">
+					<h2>TheGameStore</h2>
+				</div>
+				<div class="carrinho-login">
+					<span class="fas fa-user"></span> <span
+						class="fas fa-shopping-cart"></span>
+				</div>
+			</nav>
+		</div>
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="nav-item nav-link" href='/home' style="color: white">HOME</a>
+			<a class="nav-item nav-link" href="#" style="color: white">MAIS
+				VENDIDOS</a> <a class="nav-item nav-link" href="#" style="color: white">CONSOLES</a>
+			<a class="nav-item nav-link active" href="#" style="color: white">JOGOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">ACESSÓRIOS</a>
+			<a class="nav-item nav-link" href="#" style="color: white">LANÇAMENTOS</a>
+			<security:authorize
+				access="hasAnyRole('administrador', 'estoquista')">
+				<a class="nav-item nav-link" href='/estoquista' style="color: white">PRODUTOS</a>
+			</security:authorize>
+
+
+			<security:authorize access="hasRole('administrador')">
+				<a class="nav-item nav-link" href='/administrativo'
+					style="color: white">USUARIOS</a>
+			</security:authorize>
+		</nav>
+	</header>
+<body>
+	<main>
+		<div class="container">
+			<br>
+			<div class="titulo-consulta">
+				<h1>Consulta dos pedidos</h1>
+			</div>
+
+			<div th:if="${msgSucesso != null}" th:text="${msgSucesso}"
+				class="alert alert-success" role="alert"></div>
+
+
+			<!--código omitido-->
+
+			<br>
+			<table class="table table-borderless table-condensed">
+				<thead class="bg-light">
+					<tr>
+						<th class="text-center">Numero do Pedido</th>
+						<th class="text-center">Total do Pedido</th>
+						<th class="text-center">Data da Compra</th>
+						<th class="text-center">Forma de pagamento</th>
+						<th class="text-center">Status</th>
+					</tr>
+				</thead>
+
+
+
+				<form action="#" th:object="${Pedido}"
+					th:action="@{/estoquista/alterarPedido/} +  ${Pedido.idPedido}"
+					th:method="put">
+
+					<tr>
+						<td class="text-center" th:text="${Pedido.numeroPedido}" />
+						<td class="text-center" th:text="${Pedido.totalPedido}" />
+						<td class="text-center" th:text="${Pedido.dtCompra}" />
+						<td class="text-center" th:text="${Pedido.formaPagamento}" />
+						<td for="select" class="text-center" text="" />
+
+
+						<select class="form-control" th:field="*{status}" id="status"
+							required>
+							<option value="Pagamento Rejeitado">Pagamento Rejeitado</option>
+							<option value="Pagamento com Sucesso">Pagamento com
+								Sucesso</option>
+							<option value="Aguardando Retirada">Aguardando Retirada</option>
+							<option value="Em trânsito">Em Trânsito</option>
+							<option value="Entregue">Entregue</option>
+
+
+
+						</select>
+
+						<button type="submit" value="submit"
+							class="btn btn-outline-success">Alterar</button>
+					</tr>
+				</form>
+
+				</tbody>
+			</table>
+
+		</div>
+
+	</main>
+
+</body>
+</html>

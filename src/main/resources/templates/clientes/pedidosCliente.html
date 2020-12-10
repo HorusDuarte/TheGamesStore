@@ -97,6 +97,7 @@
                 <th class="text-center">Total do Pedido</th>
                 <th class="text-center">Data da  Compra</th>
                 <th class="text-center">Forma de pagamento</th>
+                <th class="text-center">Status</th>
             </tr>
             </thead>
             <tbody th:if="${listPedidos != null}">
@@ -105,6 +106,7 @@
             <td class="text-center" th:text="${pedidos.totalPedido}" />
             <td class="text-center" th:text="${pedidos.dtCompra}" />
             <td class="text-center" th:text="${pedidos.formaPagamento}" />
+            <td class="text-center" th:text="${pedidos.status}"/>
                 <td class="text-center">
                     <form
 

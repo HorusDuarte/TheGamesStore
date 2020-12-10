@@ -16,6 +16,7 @@ public class Pedido {
 	private List<ItensCompra> itensCompra;
 	private LocalDateTime dtCompra;
 	private String formaPagamento;
+	private String status;
 
 	public void setRandomNumPedido() {
 		this.numeroPedido = new Random().nextInt(10000);

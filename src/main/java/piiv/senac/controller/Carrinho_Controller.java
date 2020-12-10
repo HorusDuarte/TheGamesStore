@@ -17,19 +17,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import piiv.senac.dao.ClientesRepository;
 import piiv.senac.dao.PedidoRepository;
 import piiv.senac.dao.ProdutoRepository;
+import piiv.senac.dao.UsuarioRepository;
 import piiv.senac.entity.ItensCompra;
 import piiv.senac.entity.Pedido;
 import piiv.senac.entity.table_Cliente;
 import piiv.senac.entity.table_Compra;
 import piiv.senac.entity.table_Produtos;
+import piiv.senac.entity.table_Usuarios;
 
 @Controller
 public class Carrinho_Controller {
@@ -107,8 +111,7 @@ public class Carrinho_Controller {
 		mv.addObject("listPedidos", listPedidos);
 		return mv;
 	}
-
-
+	
 	@GetMapping("/consultarPedido/{idPedido}")
 	public ModelAndView consultarDetalhes( @PathVariable Integer idPedido) {
 		ModelAndView mv = new ModelAndView("clientes/pedidoItem");
@@ -119,6 +122,48 @@ public class Carrinho_Controller {
 		mv.addObject("listItens", listItens);
 		return mv;
 	}
+	
+	@GetMapping("/estoquista/pedidos")
+	public ModelAndView backOfficePedido() {
+		ModelAndView mv = new ModelAndView("estoquista/backofficePedidos");
+		
+		List<Pedido> listaPedidos = pedidoRepository.getTodosPedido();
+		
+		mv.addObject("listaPedidos", listaPedidos);
+		
+		return mv;
+		
+	}
+	
+	@GetMapping("/estoquista/pedidos/{idPedido}")
+	public ModelAndView backOfficeDetalhes( @PathVariable Integer idPedido) {
+		ModelAndView mv = new ModelAndView("estoquista/pedidoItem");
+
+		List<ItensCompra> listItens = pedidoRepository.getProdutosPedido(idPedido);
+		mv.addObject("compra", compra);
+		mv.addObject("listItens", listItens);
+		return mv;
+	}
+	
+	@GetMapping("/estoquista/alterarPedido/{idPedido}")
+	  public ModelAndView exibirAlterarPedido(@PathVariable("idPedido") int idPedido) {
+	    ModelAndView mv = new ModelAndView("estoquista/backofficeAlterarPedidos");
+		Pedido Pedido = pedidoRepository.getPedidoEspecifico(idPedido);
+		
+		mv.addObject("Pedido", Pedido);
+	    return mv;
+	  }
+
+	  @PutMapping("/estoquista/alterarPedido/{idPedido}")
+	  public ModelAndView alterarPedido(
+	          @PathVariable("idPedido") int idPedido,
+	          @ModelAttribute(value = "Pedido") Pedido p) {
+
+	
+	    pedidoRepository.alterarPedido(p);
+	    ModelAndView mv = new ModelAndView("redirect:/estoquista/pedidos");
+	    return mv;
+	  }
 
 
 	@GetMapping("/alterarQuantidade/{id_produto}/{acao}")
